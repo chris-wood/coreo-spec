@@ -1,0 +1,1298 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!-- This template is for creating an Internet Draft using xml2rfc,
+    which is available here: http://xml.resource.org. -->
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!-- One method to get references from the online citation libraries.
+    There has to be one entity for each item to be referenced.
+    An alternate method (rfc include) is described in the references. -->
+
+<!ENTITY RFC1982 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1982.xml">
+<!ENTITY RFC1990 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.1990.xml">
+<!ENTITY RFC2119 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC2629 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.2629.xml">
+<!ENTITY RFC3552 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3552.xml">
+<!ENTITY RFC5226 SYSTEM "http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5226.xml">
+]>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+<!-- used by XSLT processors -->
+<!-- For a complete list and description of processing instructions (PIs),
+    please see http://xml.resource.org/authoring/README.html. -->
+<!-- Below are generally applicable Processing Instructions (PIs) that most I-Ds might want to use.
+    (Here they are set differently than their defaults in xml2rfc v1.32) -->
+<?rfc strict="yes" ?>
+<!-- give errors regarding ID-nits and DTD validation -->
+<!-- control the table of contents (ToC) -->
+<?rfc toc="yes"?>
+<!-- generate a ToC -->
+<?rfc tocdepth="4"?>
+<!-- the number of levels of subsections in ToC. default: 3 -->
+<!-- control references -->
+<?rfc symrefs="yes"?>
+<!-- use symbolic references tags, i.e, [RFC2119] instead of [1] -->
+<?rfc sortrefs="yes" ?>
+<!-- sort the reference entries alphabetically -->
+<!-- control vertical white space
+    (using these PIs as follows is recommended by the RFC Editor) -->
+<?rfc compact="no" ?>
+<!-- do not start each main section on a new page -->
+<?rfc subcompact="no" ?>
+<!-- keep one blank line between list items -->
+<!-- end of list of popular I-D processing instructions -->
+
+<?rfc private="" ?>
+
+<!-- draft-mosko-icnrg-beginendfragment-02 -->
+<rfc category="exp" docName="draft-mosko-icnrg-beginendfragment-02" ipr="trust200902">
+  <!-- category values: std, bcp, info, exp, and historic
+    ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
+       or pre5378Trust200902
+    you can add the attributes updates="NNNN" and obsoletes="NNNN"
+    they will automatically be output with "(if approved)" -->
+
+  <!-- ***** FRONT MATTER ***** -->
+
+  <front>
+    <!-- The abbreviated title is used in the page header - it is only necessary if the
+        full title is longer than 39 characters -->
+
+    <title abbrev="ICN-BeginEnd-Fragmentation">ICN "Begin-End" Hop by Hop Fragmentation</title>
+
+    <!-- add 'role="editor"' below for the editors if appropriate -->
+
+    <!-- Another author who claims to be an editor -->
+
+    <author fullname="Marc Mosko" initials="M.E." surname="Mosko">
+      <organization>PARC</organization>
+
+      <address>
+       <postal>
+         <street/>
+
+         <!-- Reorder these if your country does things differently -->
+
+         <city>Palo Alto</city>
+
+         <region>California</region>
+
+         <code>94304</code>
+
+         <country>USA</country>
+       </postal>
+
+       <phone>+1 650-812-4405</phone>
+
+       <email>marc.mosko@parc.com</email>
+
+       <!-- uri and facsimile elements may also be added -->
+     </address>
+    </author>
+
+    <author fullname="Christian Tschudin" initials="C." surname="Tschudin">
+      <organization>University of Basel</organization>
+
+      <address>
+       <postal>
+         <street/>
+
+         <!-- Reorder these if your country does things differently -->
+
+         <city>Basel</city>
+
+          <code>4051</code>
+
+         <country>Switzerland</country>
+       </postal>
+
+       <phone>+41 61 267 0557</phone>
+
+       <email>christian.tschudin@unibas.ch</email>
+
+       <!-- uri and facsimile elements may also be added -->
+     </address>
+    </author>
+
+    <date month="February" year="2016"/>
+
+    <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
+        in the current day for you. If only the current year is specified, xml2rfc will fill
+	 in the current day and month for you. If the year is not the current one, it is
+	 necessary to specify at least a month (xml2rfc assumes day="1" if not specified for the
+	 purpose of calculating the expiry date).  With drafts it is normally sufficient to
+	 specify just the year. -->
+
+    <!-- Meta-data Declarations -->
+
+    <area>General</area>
+
+    <workgroup>ICNRG</workgroup>
+
+    <!-- WG name at the upperleft corner of the doc,
+        IETF is fine for individual submissions.
+	 If this element is not present, the default is "Network Working Group",
+        which is used by the RFC Editor as a nod to the history of the IETF. -->
+
+    <keyword>Content Centric Networking</keyword>
+
+    <!-- Keywords will be incorporated into HTML output
+        files in a meta tag but they have no effect on text or nroff
+        output. If you submit your draft to the RFC Editor, the
+        keywords will be used for the search engine. -->
+
+    <abstract>
+      <t>This document describes a simple hop-by-hop fragmentation scheme
+        for ICN and mappings to the CCNx 1.0 and NDN packet formats,
+        called "begin-end fragmentation". This scheme may be used at Layer 3
+        when ICN packets are used natively over a Layer 2 media which does
+        not reorder packets.</t>
+
+    </abstract>
+  </front>
+
+  <middle>
+     <section title="Introduction">
+       <t>In the past, there were two known hop-by-hop fragmentation schemes for
+         ICN packets: The one described in <xref target="NDNLP">NDNLP</xref>
+         as "indexed fragmentation" and the one implemented in
+         <xref target="CCNLite">CCN-lite</xref>,
+         using the old ccnb encoding. In a first part, this
+         document describes a third,  hop-by-hop fragmentation
+         protocol in an encoding-neutral way. In a second part, we show mappings of this "begin-end fragmentation scheme" to
+         the
+         <xref target="CCNMessages">CCNx Messages in TLV Format</xref> and the NDN TLV [NDN] encoding.
+         Thirdly, possible extensions and their encodings are discussed, for example
+         reporting link reliability or link ARQ schemes such as windowing
+         protocols.</t>
+
+       <t>The proposed hop-by-hop "begin-end fragments" scheme may be used
+         at Layer 3 when large ICN messages are to be natively sent over a
+         Layer 2 media with a small MTU. In cases where ICN packets are
+         carried over an existing Layer 3 protocol, such as IP, the Information
+         Centric Network SHOULD use that protocol's native fragmentation.
+       </t>
+
+       <t>This proposed fragmentation scheme is an adaptation of PPP Multilink
+         <xref target="RFC1990">PPP Multilink</xref> fragmentation between peers
+         identified by their Layer 2 identity. It is appropriate for standard
+         Layer 2 media that guarantee in-order packet delivery.
+       </t>
+
+       <t>Definitions:
+         <list style='symbols'>
+
+           <t>(Network Protocol) Packet: A layer 3 ICN datagram, such as a
+              Content Object or Interest, which is too large to be
+              transmitted over a given L2 technology.</t>
+
+           <t>Fragment: The datagram containing all serialized data fields
+              required by the proposed fragmentation protocol. Depending on
+              the mapping, the fragment will contain these fragment protocol
+              specific data but also, for example, a CCNx fixed header,
+              optional Per-Hop-Headers and/or and validator fields like
+              checksums or signatures.</t>
+
+           <t>Fragment Header: The serialized CONTROL data structures of
+              the proposed fragmentation protocol plus mapping
+              specific bits.</t>
+
+           <t>Fragment Data (or payload): The portion of the original
+              Network Protocol Packet that is carried in the Fragment.</t>
+
+           <t>Frame: A layer-2 frame in which the Fragment will be
+              transferred.</t>
+         </list>
+       </t>
+
+      <t>Fragments are represented as 32-bit wide words using ASCII
+      art.  Because of the Type-Length-Value encoding used (TLV) and
+      optional fields or sizes, there is no concise way to represent
+      all possibilities.  We use the convention that ASCII art fields
+      enclosed by vertical bars "|" represent exact bit widths.
+      Fields with a forward slash "/" are variable bit widths, which we
+      typically pad out to word alignment for picture readability.</t>
+
+       <t>TODO -- we have not adopted the Requirements Language yet.</t>
+
+
+      <section title="Requirements Language">
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD
+          NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as
+          described in <xref target="RFC2119">RFC 2119</xref>.</t>
+      </section>
+    </section>
+
+    <section anchor="protocol" title="Abstract Description of the Begin-End-Fragment Protocol">
+
+      <t>A Fragment is defined as the following fields (plus any
+        additional fields required by the wire formatting in which
+        fragments are encoded):
+        <figure>
+          <artwork align="left"><![CDATA[
+Fragment       = FragProtocolID FragProtocolData
+FragProtocolID = <BeginEndFragmentsProtocolID> | (other protocols' ids)
+FragProtocolData = BeginEndFragmentsData | (other protocols' data)
+BeginEndFragmentsData = Flags FragSeqNo FragLength FragData
+Flags          = B / E / BE / I
+B              = <begin flag>
+E              = <end flag>
+BE             = <begin and end flag>
+I              = <idle flag>
+FragSeqNo      = 1*OCTETS
+FragLength     = <Octets of fragment data>
+FragData       = <Continuous octets (portion of Packet)>
+]]></artwork>
+        </figure>
+      </t>
+
+       <t>The fragmentation protocol is run between a sender and a "peer",
+        which can be one or more, potentially passive, receivers.
+        They execute first an <xref target="init">Initialization Protocol</xref>,
+        then use a <xref target="sender">Sender Protocol</xref> and
+        <xref target="receiver">Receiver Protocol</xref> to exchange frames.
+      </t>
+
+      <t>The initialization protocol uses a reliable messages exchange
+        to reset the the FragSeqNo to 0 on both peers.  This ensures that
+        when one or another peer restarts both peers will reset their state.</t>
+
+        <t>The sender breaks a packet P (typically an Interest- or
+          Content packet in the embedding wire encoding) into one or
+          more fragments which are tagged with monotonically
+          increasing sequence numbers. The B, E and BE flags are used
+          to signal the start of a fragment series (B), its end (E),
+          or a single fragment (BE) for the given packet P.
+        </t>
+
+        <t>It is advisable that the 'B' fragment contains enough
+          information in its Fragment Data to let the receiver know
+          the total length of the packet to be reconstructed (and size
+          of the reassembly buffer to be allocated) and the type of the
+          expected packet.
+        </t>
+
+        <t>The receivers listen to the fragment stream and reconstruct
+          from a valid fragment series the original packet, and reject
+          fragments with invalid sequence numbers, flags, or
+          validation data.
+        </t>
+
+        <t>The 'I' flag allows the sender to send idle frames that do
+           not contain any Fragment Data, but do increment the fragment
+           sequence number.  This is useful on lossy links to indicate that
+           the sender is past the end of the previous packet in
+           case the 'E' fragment was lost.  Moreover, as a possible
+           extension of the protocol, this allows for periodic keepalives,
+           measuring for example
+           link quality when there is no other traffic to send.
+        </t>
+
+      <section anchor="init" title="Initialization">
+        <t>Whenever a peer begins operation, it must reliably reset the
+          sequence number space.  If the underlying link already ensures
+          a complete reset of both peers, that method MAY be used.  Otherwise,
+          the method presented here SHOULD be used.</t>
+
+        <t>
+          <list style="numbers">
+            <t>For each peer, a node tracks its local state, S_LOCAL[peer], and its peer's state S_REMOTE[peer].  A
+              state may be INIT or Sync or OK, though only certain combinations are possible.</t>
+
+            <t>A node tracks its FragSeqNo as FSN_LOCAL[peer] and the next expected FragSeqno
+              from its peer as FSN_REMOTE[peer].</t>
+
+            <t>A node remembers two numbers N_LOCAL[peer] and N_REMOTE[peer].  N_LOCAL is the
+            node's own sequence number and N_REMOTE is the one learned from a peer.  These two
+            numbers identify the current reboot of a node and serve as computation identifiers.
+            They may be sequence numbers or random numbers or taken from some other source that
+            is unlikely to repeat reboot to reboot.</t>
+
+            <t>A RESET message carries a nodes N_LOCAL[peer] value and informs the peer that it
+            should reset it's fragment sequence numbers.</t>
+
+            <t>Upon receiving a RESET, a node will set N_REMOTE[peer] to the RESET number and
+            will send a RESETACK message to acknowledge the RESET and to inform the peer of
+            it's own N_LOCAL[peer] number.  Thus a RESET mesage carries one value and
+            a RESETACK carries two values.</t>
+
+            <t>We will drop the [peer] subscript from the state variables in the following with the
+               understanding that this protocol executes per pair of peers.</t>
+
+            <t>If a node is not in the OK/OK state, it MUST send only RESET or RESETACK messages.</t>
+
+            <t>Upon sending a first RESET message, the sending node starts a retransmit timer for
+              the peer.  It begins at RESET_TIMOUT (50 msec).</t>
+
+            <t>At each RESET timeout, a node sets a new timeout as twice the previous timeout.
+              If it is less than MAX_TIMEOUT (4 seconds), it sends {RESET, N_LOCAL} again and starts
+              a reset timer with the new timeout.</t>
+
+           <t>Upon receiving a valid RESETACK that matches a node's N_LOCAL, the RESET timeout
+           is set back to RESET_TIMEOUT.</t>
+          </list>
+        </t>
+
+        <t>The <xref target="python-sim">ccnx-beginendfragment-sim</xref> software package is a Python
+            simulator of the sequence number reset algorithm.  It uses simple discrete event simulator
+            to validate the reset algorithm under various conditions of delay and packet loss and
+            node reboots.</t>
+
+        <t>
+        Figures 1 - 3 show the reset state machine. In the figures, we use short abbreviations for
+        compactness.  N_L is N_LOCAL, N_R is N_REMOTE, FSN_L is FSN_LOCAL, FSN_R is FSN_REMOTE.
+        We also abbreviate RESET as RST and RESTACK as RSTACK.  Double line boxes indicate
+        a potentially blocking state that responds to external events (timeouts or packet
+        reception).  Single line boxes indicate transient states the perform some operation.
+        </t>
+
+        <t>Figure 1 shows the initial state of a system as REBOOT.  REBOOT state will ignore
+        any received packets and initialize the state variables.  After rebooting, a node
+        will be in the INIT, INIT state.  From here, it may either receive a RESET
+        message from its peer or send its own RESET message.  In the first case, it proceeds
+        to X2 (the slave state), in the second case it proceeds to X1 (the master state).
+        </t>
+
+        <t>Figure 2 shows the master state, where the system sends out a RESET before
+        receiving a RESET from a peer.  In state SYNC, INIT, the node is waiting for
+        either a RESETACK or a RESET from its peer.  If it does not receive either before
+        its timeout, it will double its timeout and send another RESET</t>
+
+        <t>Figure 3 shows the slave state, where the system has received a RESET from
+        its peer before it has sent its own RESET.  This puts the node in the INIT, OK state.
+        Typically, a node will immediately send its own RESET message, though the RESETACK
+        its sends has the same effect.  This puts the node in the SYNC, OK state.  One
+        of three events can happen: a timeout to send another RESET message, receive
+        a RESETACK or receive another RESET.  Upon receiving a valid RESETACK, the
+        node can move to the OK, OK state. </t>
+
+ <t>
+ <figure anchor="fig-reboot" title="Reboot State">
+<artwork align="left"><![CDATA[
+  +-------------------------+
+  |                         v
++-------+  recv any       #===============#
+| Drop  | <-------------- H    Reboot     H
++-------+                 #===============#
+                            |
+                            |
+                            v
+                          +---------------+
+                          | N_L=N, N_R=0, |
+                          | FSN_R=FSN_L=0 |
+                          +---------------+
+                            |
+                            |
+                            v
+.........  recv (RST M)   #===============#
+: To X2 : <-------------- H  Init, Init   H
+:.......:                 #===============#
+                            |
+                            |
+                            v
+                          .................
+                          :     To X1     :
+                          :...............:
+]]></artwork>
+</figure>
+<figure anchor="fig-x1" title="Master State">
+<artwork align="left"><![CDATA[
+                ......        +-------------------+
+                : X1 : ---->  |  Send RST(N_L)    | <--------+
+                :....:        +-------------------+          |
+                                      |                      |
+                                      v                      |
+                              +-------------------+   +--------------+
+                              |    Start Timer    |   | Inc. Timeout |
+                              +-------------------+   +--------------+
+                                      |                      ^
+                      recv(RST M)     v                      |
+ +-------------------+        #===================#  timeout |
+ |     N_R = M       | <----- H    Sync, Init     H ---------|
+ +-------------------+        #===================#
+       |                              | recv(RSTACK N,M)
+       v                              v
+    .........                 +-------------------+  no    +----------+
+    : To X4 :                 |     If N=N_L      | -----> |   Drop   |
+    :.......:                 +-------------------+        +----------+
+                                      | yes
+                                      v
+                              +-------------------+
+                              |   Cancel Timer    |
+                              |   Reset Timeout   |
+                              |      N_R = M      |
+                              +-------------------+
+                                      |
+                                      v
+                              +-------------------+
+                              |       Send        |
+                              | RSTACK(N_R, N_L)  | <+
+                              +-------------------+  |
+                                       |             | yes
+                 recv RSTACK(N, M)     v             |
+               .........      #===================#  |
+               : To X6 : <--- H      OK, OK       H  |
+               :.......:      #===================#  |
+                                       | recv RST(M) |
+                                       v             |
+               .........  no  +-------------------+  |
+               : To X3 : <--- |     If M=N_R      | -+
+               :.......:      +-------------------+
+]]></artwork>
+</figure>
+
+<figure anchor="fig-x2" title="Slave State">
+<artwork align="left"><![CDATA[
+
+    ........       +-------------------+
+    :  X2  : ----> |       N_R=M       | <----+
+    :......:       +-------------------+      |
+                       |                      | recv (RST M)
+                       v                      |
+                   +-------------------+    #===================#
+                   |       Send        | -> H     Init, OK      H
+                +> |  RSTAK(N_R, N_L)  |    #===================#
+                |  +-------------------+      |
+                |                             |
+                |  +-------------------+      |
+                |  |   Send RST(N_L)   | <----+
+                |  |    Start Timer    | <------------------------+
+                |  +-------------------+                          |
+                |    |                                            |
+                |    v                                     recv   |
+                |  #====================================# (RST M) |
+  +-------------+> H            Sync, OK                H --------+---+
+  |             |  #====================================#         |   |
+  |             |      | recv (RSTAK N,M)   | timeout             |   |
+  |             |      v                    |                     |   |
+  |  ........   |    +-----------------+    |      +---------------+  |
+  |  :  X6  : --+--> |   If N=N_L      |    +----> | Inc. Timeout  |  |
+  |  :......:   |no  +-----------------+           +---------------+  |
+  |  +------+   |     | no        | yes                    +----------+
+  |  | Drop | <-+-----+           v                        v
+  |  +------+   |  +-------------------+           +---------------+
+  |             |  |   Cancel Timer    |           | If M=N_REMOTE | yes
+  |             |  |   Reset Timeout   |           |               | -+
+  |             |  +-------------------+           +---------------+  |
+  |             |      |                             | no             |
+  |  .........  |      v                             v                |
+  |  :   To  :  |    +-----------------+           +---------------+  |
+  |  : OK,OK :<-+--- |  If M=M_REMOTE  |           | Cancel Timer  |  |
+  |  :.......:  |yes +-----------------+           +---------------+  |
+  |             |      | no                          |                |
+  |             |      v                             |                |
+  |             |  +-------------------+             |                |
+  |  ........   +- |      N_R=M,       | <-----------+                |
+  |  :  X3  : ---> |   FSN_R=FSN_L=0   |                              |
+  |  :......:      +-------------------+                              |
+  +--------------------- +    +-------------------+                   |
+               ........  +--< |       Send        |                   |
+               :  X4  : ----> |  RSTAK(N_R, N_L)  | <-----------------+
+               ........       +-------------------+
+]]></artwork>
+</figure>
+</t>
+
+
+        <section anchor="init_examples" title="Examples">
+
+          <t>The first example, <xref target="example1"/> shows an example message
+            sequence diagram of the initialization process.  The "T" column is Time, The "S"
+            column is for S_LOCAL and S_REMOTE, the N column is for N_LOCAL and N_REMOTE,
+            and the FSN column is for FSN_LOCAL and FSN_REMOTE.  We show both peers, one on the
+            left side of the figure and one on the right side; call them nodes "A" and "B".
+            We only show an entry in the table when state changes.
+            <list style="symbols">
+              <t>T=0: A initializes and sets its state values as shown, picking
+                the message sequence number 5.  It sends the message
+                {RESET, 5} to B.  It starts a RESET timer.
+              </t>
+              <t>
+                T=2: Node B initializes, picking message sequence number 7.  It sends
+                {RESET, 7} to A.  It starts a RESET timer.
+              </t>
+              <t>T=3: Node A receives {RESET, 7}.  It sets S_REMOTE to OK and records
+                N_REMOTE as 7.  It sets FSN_LOCAL and FSN_REMOTE to 0.
+              </t>
+              <t>
+                T=4: Node A sends {RESET_ACK, 7} to node B.
+              </t>
+              <t>
+                T=5: Node B reeives {RESET_ACK, 7}, so it sets S_LOCAL to OK.
+                It cancels its RESET timer.
+              </t>
+              <t>
+                T=6: Node A's RESET timer expires and it re-sends {RESET, 5} to B.
+              </t>
+              <t>
+                T=7: Node B receives {RESET, 5}.  It records N_REMOTE as 5 and sets
+                S_REMOTE to OK.  At this point, Node B is in OK/OK state and may begin
+                sending data.
+              </t>
+              <t>
+                T=8: Node B sends {RESET_ACK, 5}.
+              </t>
+              <t>
+                T=9: Node B begins sending data to A.
+              </t>
+              <t>
+                T=9: Node A reveives {RESET_ACK, 5} and sets S_LOCAL to OK.  It is now
+                in OK/OK state and may begin sending data to B.
+              </t>
+              <t>
+                T=10: Node A begins sending data to B.
+              </t>
+            </list>
+          </t>
+          <figure anchor="example1">
+            <artwork align="left"><![CDATA[
+|---|-----|-----|-----|                        |-----|-----|-----|
+| T |  S  |  N  | FSN |                        |  S  |  N  | FSN |
+|   | L R | L R | L R |                        | L R | L R | L R |
+|---|-----|-----|-----|                        |-----|-----|-----|
+| 0 | I I | 5 0 | 0 0 | >-{RESET, 5}--------->X|    not ready    |
+|   |     |     |     |                        |     |     |     |
+| 2 |     |     |     | <---------{RESET, 7}-< | I I | 7 0 | 0 0 |
+| 3 |   OK| 5 7 | 0 0 |                        |     |     |     |
+| 4 |     |     |     | >-{RESET_ACK, 7, 5}--> |     |     |     |
+| 5 |     |     |     |                        |OK   | 7 0 | 0 0 |
+| 6 |     |     |     | >-{RESET, 5}---------> |     |     |     |
+| 7 |     |     |     |                        |   OK|   5 | 0 0 |
+| 8 |     |     |     | <---{RESET_ACK, 5,7}-< |     |     |     |
+| 9 |OK   |     |     | <-------------{data}-< |     |     |     |
+| 10|     |     |     | >-{data}-------------> |     |     |     |
+|---|-----|-----|-----|                        |-----|-----|-----|
+]]></artwork>
+      </figure>
+
+        </section>
+      </section>
+
+      <section anchor="sender" title="Sender Protocol">
+
+        <t>
+          <list style="numbers">
+            <t>A sender maintains a separate state machine for each peer.</t>
+            <t>When a peering is established, the FragSequenceNumber
+               begins at 0.</t>
+            <t>After sending a Fragment, FragSequenceNumber is
+               incremented by one.</t>
+            <t>In the first fragment for a packet, set the B bit to '1'.</t>
+            <t>In the last fragment for a packet, set the E bit to '1'.</t>
+            <t>Both the B and E bits must be set to '1' for a single
+               fragment.</t>
+            <t>If both the B and E and I bits are not set, the fragment
+               is in the middle of a series.</t>
+            <t>When not sending a fragment (with fragment data), the
+              sender may send an Idle fragment with only the 'I' bit
+              set. This indicates that the sender has no packet to send.
+              Idle frames may only be sent in between E and B frames.</t>
+          </list>
+        </t>
+      </section>
+
+      <section anchor="receiver" title="Receiver Protocol">
+        <t>
+          <list style="numbers">
+            <t>A receiver maintains one reassembly queue per sender.</t>
+            <t>Discard Idle fragments.</t>
+            <t>Discard fragments until a 'B' fragment is received.
+               Store the received sequence number for this sender.</t>
+            <t>If an out-of-order fragment is received next, discard the
+               reassembly buffer and go to step (2).</t>
+            <t>Continue receiving in-order fragments until the first
+              'E' fragment.  At this time, the fragmented packet is
+              fully re-assembled and may be passed on to the next
+              layer.</t>
+            <t>The receiver cannot assume it will receive the 'E'
+              fragment or a subsequent 'I' frame, so it should use a
+              timeout mechanism appropriate to the link to release
+              preallocated memory resources.</t>
+          </list>
+        </t>
+
+      </section>
+
+    </section>
+
+     <section title="Ethernet as a common use case">
+
+       <t>We expect that Ethernet will be the most common L2
+         technology where the proposed ICN fragmentation will be used,
+         therefore we briefly elaborate on how fragmentation functions
+         with the broadcast and multi-protocol nature of Ethernet.
+       </t>
+
+       <t>When the fragmentation protocol is used with Ethernet, each
+         participant uses the tuple {source mac, destination mac,
+         ethertype} to identify a send or receive buffer and
+         FragSequenceNumber number space.
+       </t>
+
+       <t>
+         If the fragmentation protocol is using a group address destination,
+         each group address is considered a "peer" with its
+         own FragSequenceNumber.  For example, the MAC address
+         0x01005E0017AA on EtherType 0x0801 is the CCNx assigned group
+         address for its 224.0.23.170 IP multicast address.  Each
+         sender would maintain a FragSequenceNumber for that peer.  Each
+         receiver would maintain a separate reassembly buffer for that group
+         address based on the sender and ethertype.
+       </t>
+       <t>
+         If using other Ethernet encapsulations, such as 802.1AE MacSec, one could
+         use a security identifier in place of the {source, destination, ethertype} tuple.
+       </t>
+
+       </section>
+
+
+    <section anchor="ccnx_protocol" title="CCNx 1.0 Fragment Protocol Description">
+       <t>The hop-by-hop fragmentation protocol introduces a new CCNx
+        1.0 Packet Type called PT_FRAG and uses new fields in the
+        Fixed Header.  The hop-by-hop headers of a CCNx 1.0 fragment
+        may be used for purposes like link quality reporting or a
+        reliable ARQ scheme, which are out-of-scope of this document.
+       </t>
+
+      <t>We describe a basic hop-by-hop fragmentation header, using bits
+      in the Fixed Header for the fragment encoding.  We also describe
+      an extended version with variable sequence number size that puts the
+      fragmentation header in the body of the CCNx message.  This allows
+      the fragmentation header to be signed or covered by a MIC.  The
+      extended encoding sets the 'X' flag to 1 in the Fixed Header, otherwise
+      it is the basic encoding.</t>
+
+      <t>The "hop-by-hop fixed header" follows the normal conventions:
+        The Version, PacketLength, and HeaderLength fields are as per
+        <xref target="CCNMessages">CCNx Messages in TLV Format</xref>.  The PacketType is set to
+        PT_FRAG. However, in the packet-type dependent fields, we
+        reserve 4 bits for flags and 20 bits for a sequence
+        number.</t>
+
+      <t>The "message part" of the CCNx 1.0 fragment carries the
+        fragment data in its own TLV block. The message part may also
+        contain standard CCNx validation algorithm and validation
+        bits in subsequent TLV blocks. In this way, the fragment can
+        be covered by a CRC32C checksum or stronger validation
+        methods.</t>
+
+      <t>The new TLV type T_FRAGMENT wraps the fragment bytes.
+        It is a top-level message TLV, similar to T_INTEREST or T_OBJECT.</t>
+
+      <t>For sequence number reset, the new TLV types T_FRAG_RESET
+        and T_FRAG_RESET_ACK carry the initialization message sequence number.
+        They MUST appear in an Idle (I) frame.
+        A packet MUST NOT have T_FRAGMENT if it has one of these fields.
+        A single packet may have both a T_FRAG_RESET and a T_FRAG_RESET_ACK.
+        These fields appear in the CCNx message section.
+        It is RECOMMENDED to use a 64-bit sequence number, though an
+        implementation MAY use any length appropriate to the media.
+      </t>
+
+      <t>T_FRAG_RESET and T_FRAG_RESET_ACK may be in either basic
+        header or extended header packets.  In extended header format,
+        the T_FRAG_HEADER element MUST be length 1, which conveys only
+        the flags.</t>
+
+       <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|    Version    |    PT_FRAG    |         PacketLength          |
++---------------+---------------+---------------+---------------+
+|X|B|E|I|          FragSequenceNumber           | HeaderLength  |
++---------------+---------------+---------------+---------------+
+/ Optional Hop-by-hop header in TLV format                      /
++---------------+---------------+---------------+---------------+
+| Fragment Data TLV                                             /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationAlgorithm TLV                         /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationPayload TLV (ValidationAlg required)  /
++---------------+---------------+---------------+---------------+
+]]></artwork>
+      </figure>
+      <t>
+        <list style="symbols">
+          <t>X: Extended Format (X=0 shown above)</t>
+          <t>B: Begin flag.</t>
+          <t>E: End flag.</t>
+          <t>I: Idle flag.</t>
+          <t>FragSequenceNumber: a 20-bit sequence number to identify the
+            fragment (see below).</t>
+        </list>
+      </t>
+
+      <t>The FragSequenceNumber follows <xref target="RFC1982">Serial
+        Number Arithmetic</xref> for a 20-bit serial number.  This
+        means we have 19 bits of "valid" sequence number space, or
+        524,288 fragments.  The packets per second for a 10 Gbps link
+        with 1500 bytes Ethernet frames is 833,333 packets per second.
+        Therefore, the 20-bit sequence number space allows for 629
+        milliseconds of frames.</t>
+
+      <t>In CCNx 1.0, the maximum encapsulated length is 64 KB --
+        which requires under 50 PT_FRAG frames of 1500 bytes,
+        depending on the HeaderLength and validation options. So the
+        valid sequence number space (when e.g. used over Ethernet) is
+        approximately 10,500 maximum size (network protocol) packets.
+      </t>
+
+      <t>If a PT_FRAG packet has optional hop-by-hop headers, the
+      implementation should pass the fragment to the appropriate
+      subsystem to process those headers before discarding the
+      fragment.</t>
+
+      <t>The Extended encoding (X=1) moves the fragment header fields (=
+        flags and sequence number) to the CCNx packet's message part,
+        so they are covered by any ValidationAlgorithm used on the
+        packet.  It also allows for variable length sequence numbers.
+        In the example shown below, there is a 7-byte (56-bit)
+        sequence number.
+<!--
+ The T_FRAG_HEADER values are used to identify
+        various versions of an extended fragmentation protocol.
+-->
+      </t>
+
+      <t>The Extended encoding also allows different fragmentation
+      protocols to co-exist by changing the opening TLV type from
+      T_FRAG_HEADER to a new type.</t>
+
+      <t>The first 8 bytes of the first fragment are the FixedHeader
+      of the encapsulated Packet, so one may learn the overall length
+      of the Packet from that FixedHeader.</t>
+
+      <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|    Version    |    PT_FRAG    |         PacketLength          |
++---------------+---------------+---------------+---------------+
+|1|0|0|0|                 Reserved              | HeaderLength  |
++---------------+---------------+---------------+---------------+
+/ Optional Hop-by-hop header in TLV format                      /
++---------------+---------------+---------------+---------------+
+|          T_FRAG_HEADER        |               8               |
++---------------+---------------+---------------+---------------+
+|1|B|E|I|0|0|0|0|           FragSequenceNumber                  /
+/                                                               /
++---------------+---------------+---------------+---------------+
+| Fragment Data TLV                                             /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationAlgorithm TLV                         /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationPayload TLV (ValidationAlg required)  /
++---------------+---------------+---------------+---------------+
+]]></artwork>
+      </figure>
+
+      <section anchor="init_packets" title="Initialization examples">
+        <t>This section presents examples of initialization packets.</t>
+       <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|    Version    |    PT_FRAG    |         PacketLength          |
++---------------+---------------+---------------+---------------+
+|0|0|0|1|                0                      | HeaderLength  |
++---------------+---------------+---------------+---------------+
+/ Optional Hop-by-hop header in TLV format                      /
++---------------+---------------+---------------+---------------+
+| T_FRAG_RESET (optional)       |               8               |
++---------------+---------------+---------------+---------------+
+/ 64-bit N_LOCAL value                                          /
++---------------+---------------+---------------+---------------+
+| T_FRAG_RESET_ACK (optional)   |               8               |
++---------------+---------------+---------------+---------------+
+/ 64-bit N_LOCAL value                                          /
+/ 64-bit N_REMOTE value                                         /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationAlgorithm TLV                         /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationPayload TLV (ValidationAlg required)  /
++---------------+---------------+---------------+---------------+
+]]></artwork>
+        </figure>
+
+              <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|    Version    |    PT_FRAG    |         PacketLength          |
++---------------+---------------+---------------+---------------+
+|1|0|0|0|                 Reserved              | HeaderLength  |
++---------------+---------------+---------------+---------------+
+/ Optional Hop-by-hop header in TLV format                      /
++---------------+---------------+---------------+---------------+
+|          T_FRAG_HEADER        |               1               |
++---------------+---------------+---------------+---------------+
+|1|0|0|1|0|0|0|0|
++---------------+---------------+---------------+---------------+
+| T_FRAG_RESET (optional)       |               8               |
++---------------+---------------+---------------+---------------+
+/ 64-bit N_LOCAL value                                          /
++---------------+---------------+---------------+---------------+
+| T_FRAG_RESET_ACK (optional)   |               8               |
++---------------+---------------+---------------+---------------+
+/ 64-bit N_LOCAL value                                          /
+/ 64-bit N_REMOTE value                                         /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationAlgorithm TLV                         /
++---------------+---------------+---------------+---------------+
+/ Optional CCNx ValidationPayload TLV (ValidationAlg required)  /
++---------------+---------------+---------------+---------------+
+]]></artwork>
+      </figure>
+      </section>
+
+    <section anchor="example" title="Example">
+      <t>We present a complete example of the basic fragment encoding for a 2KB Content
+        Object for 1500 byte frames according to the protocol
+        described in this draft (with clear X-flag). The original 2KB
+        packet also has an RSA signature, but this cannot easily be
+        used for integrity checking as the receiver may not have the
+        appropriate key and it is an expensive operation. We therefore
+        chose to use a CRC32C validator on each fragment.  The Content
+        Object has the name ccnx:/abcd.  First, the original 2000 byte
+        packet is shown in entirety.
+      </t>
+
+      <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|       1       |       2       |              2000             |
++---------------+---------------+---------------+---------------+
+|            Reserved           |     Flags     |       20      |
++---------------+---------------+---------------+---------------+
+|         T_CACHETIME           |               8               |
++---------------+---------------+---------------+---------------+
+|                                                               |
+|                    Recommended Cache Time                     |
++---------------+---------------+---------------+---------------+
+|       T_CONTENTOBJECT         |              1508             |
++---------------+---------------+---------------+---------------+
+|            T_NAME             |               8               |
++---------------+---------------+---------------+---------------+
+|         T_NAMESEGMENT         |               4               |
++---------------+---------------+---------------+---------------+
+|       a                b              c              d        |
++---------------+---------------+---------------+---------------+
+|           T_PAYLOAD           |              1492             |
++---------------+---------------+---------------+---------------+
+/                        Payload Contents                       /
++---------------+---------------+---------------+---------------+
+|       T_VALIDATION_ALG        |              204              |
++---------------+---------------+---------------+---------------+
+|          T_RSA-SHA256         |              200              |
++---------------+---------------+---------------+---------------+
+|             T_KEYID           |               32              |
++---------------+---------------+---------------+---------------+
+/                            KeyId                              /
+/---------------+---------------+-------------------------------+
+|          T_PUBLICKEY          |              160              |
++---------------+---------------+---------------+---------------+
+/                Public Key (DER encoded SPKI)                  /
++---------------+---------------+---------------+---------------+
+|     T_VALIDATION_PAYLOAD      |              256              |
++---------------+---------------+---------------+---------------+
+/                          RSA Signature                        /
++---------------+---------------+---------------+---------------+
+   ]]></artwork>
+      </figure>
+
+
+      <t>The 2000 byte packet will be fragmented into two pieces.
+<!-- In this example, we have appended a CRC32C checksum to each
+      packet.  --> In the first fragment, there is 28 bytes of
+      overhead (fixed header 8, T_STD_FRAGMENT 4, validation 16), so
+      the fragment's payload size is 1472 bytes.  In the second
+      packet, the T_FRAGMENT block carries the remaining data 528
+      bytes, hence the overall packet size is 556 bytes due to the
+      same 28 bytes of overhead.  We used FragSequenceNumber "0" and
+      "1" for the two fragments.</t>
+
+      <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|       1       |    PT_FRAG    |              1500             |
++---------------+---------------+---------------+---------------+
+|0|1|0|0|                  0x00000              |       8       |
++---------------+---------------+---------------+---------------+
+|          T_FRAGMENT           |             1472              |
++---------------+---------------+---------------+---------------+
+|       1       |       2       |              2000             |
++---------------+---------------+---------------+---------------+
+|            Reserved           |     Flags     |       20      |
++---------------+---------------+---------------+---------------+
+|         T_CACHETIME           |               8               |
++---------------+---------------+---------------+---------------+
+|                                                               |
+|                    Recommended Cache Time                     |
++---------------+---------------+---------------+---------------+
+|       T_CONTENTOBJECT         |              1508             |
++---------------+---------------+---------------+---------------+
+|            T_NAME             |               8               |
++---------------+---------------+---------------+---------------+
+|         T_NAMESEGMENT         |               4               |
++---------------+---------------+---------------+---------------+
+|       a                b              c              d        |
++---------------+---------------+---------------+---------------+
+|           T_PAYLOAD           |              1492             |
++---------------+---------------+---------------+---------------+
+/             Payload Contents  (1432 out of 1492 bytes)        /
++---------------+---------------+---------------+---------------+
+|      T_VALIDATION_ALG         |               4               |
++---------------+---------------+---------------+---------------+
+|            T_CRC32            |               0               |
++---------------+---------------+---------------+---------------+
+|     T_VALIDATION_PAYLOAD      |               4               |
++---------------+---------------+---------------+---------------+
+|                         CRC32C Value                          |
++---------------+---------------+---------------+---------------+
+   ]]></artwork>
+      </figure>
+
+      <figure>
+        <artwork align="left"><![CDATA[
+                    1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+|       1       |    PT_FRAG    |              556              |
++---------------+---------------+---------------+---------------+
+|0|0|1|0|                  0x00001              |       8       |
++---------------+---------------+---------------+---------------+
+|          T_FRAGMENT           |             528               |
++---------------+---------------+---------------+---------------+
+/                Payload Contents  (last 60 bytes)              /
++---------------+---------------+---------------+---------------+
+|       T_VALIDATION_ALG        |              204              |
++---------------+---------------+---------------+---------------+
+|          T_RSA-SHA256         |              200              |
++---------------+---------------+---------------+---------------+
+|             T_KEYID           |               32              |
++---------------+---------------+---------------+---------------+
+/                            KeyId                              /
+/---------------+---------------+-------------------------------+
+|          T_PUBLICKEY          |              160              |
++---------------+---------------+---------------+---------------+
+/                Public Key (DER encoded SPKI)                  /
++---------------+---------------+---------------+---------------+
+|     T_VALIDATION_PAYLOAD      |              256              |
++---------------+---------------+---------------+---------------+
+/                          RSA Signature                        /
++---------------+---------------+---------------+---------------+
+|      T_VALIDATION_ALG         |               4               |
++---------------+---------------+---------------+---------------+
+|            T_CRC32            |               0               |
++---------------+---------------+---------------+---------------+
+|     T_VALIDATION_PAYLOAD      |               4               |
++---------------+---------------+---------------+---------------+
+|                         CRC32C Value                          |
++---------------+---------------+---------------+---------------+
+   ]]></artwork>
+      </figure>
+    </section>
+
+      <section anchor="FramePacking" title="CCNx 1.0 Frame Packing">
+
+       <t>A sender/receiver pair may multiplex non-fragmentation
+         frames on the same link.  For example, in CCNx 1.0, there
+         may be some PacketType PT_FRAG frames and some plain
+         PT_INTEREST or PT_CONTENTOBJECT frames on the same link
+         between the same pairs.  PT_FRAG frames are considered
+         independently of other frames between the pair.</t>
+
+        <t>Because each CCNx 1.0 datagram with a Fixed Header has all
+        information needed for framing, two peers may pack multiple
+        CCNx 1.0 datagrams in to one Layer 2 frame.  For example, if
+        there are several small Interests queued back-to-back,
+        they could be encapsulated in a single Ethernet frame, up to
+        the maximum Ethernet payload.</t>
+
+        <t>At the extreme, a peer may use fragmentation for all
+        packets and completely pack each Layer 2 frame.  The tail
+        fragment would be cut off at whatever byte length fits the
+        remaining Layer 2 frame.</t>
+
+        <t>Example: Assume that the outgoing queue for a specific peer has
+          the following four packets to be sent:
+        <figure><artwork align="left"><![CDATA[
+interest1(200B)
+content1(3500B)
+interest2(200B)
+content2(500B)
+        ]]></artwork></figure>
+          With 12 bytes of overhead per fragment these four packets could
+          be fragmented and packeted into three Ethernet frames as:
+        <figure><artwork align="left"><![CDATA[
+[frag(interest1,200B), frag(content1, 1276B)]
+[frag(content1, 1488B)]
+[frag(content1, 236B), frag(interest2, 200B), frag(content2, 500B)]
+        ]]></artwork></figure>
+        </t>
+      </section>
+    </section>
+
+
+    <section anchor="ndn_protocol" title="NDN Fragment Protocol Description">
+
+       <t>The Begin-End fragmentation protocol described in this draft
+         extends the NDN link protocol v2 packet format
+         (NDNLPv2). Note that this extension is not an official part
+         of the NDN suite, at this point in time.</t>
+
+       <t>NDNLPv2 packets have a start type NDNLP-TYPE which
+         distinguishes them from the classic Interest and Data
+         packets. Inside the NDNLPv2 TLV structure, a sequence of
+         NDNLPv2 header fields precede the payload (fragment data)
+         which is introduced by the type value NND-FRAGMENT-TYPE.
+        <figure><artwork align="left"><![CDATA[
+         NDNpacket      ::= Interest | Data | NDNLP
+         NDNLP          ::= NDNLP-TYPE TLV-LENGTH
+                              NDNLPhdrFields*
+                              NDNLPfragment?
+         NDNLPhdrFields ::= BeginEndField | (other NDNLP header fields)
+         BeginEndField  ::= BEGIN-END-FIELD-TYPE TLV-LENGTH
+                              BYTE BYTE+
+         NDNfragment    ::= NDN-FRAGMENT-TYPE TLV-LENGTH
+                              BYTE+
+]]></artwork></figure></t>
+
+       <t>The extension for the "begin-end" fragmentation scheme
+         relies on a new header field with type value
+         NDN-BEGIN-END-FIELD-TYPE: The presence of this field marks a
+         NDNLPv2 packet as a "begin-end" fragment. The field's value is
+         1 to 8 bytes long and consists of 2 flag bits
+         (most-significant bits) plus a sequence number (remaining
+         less-significant bits).</t>
+
+       <t>For a sender/receiver pair and for a given direction, the
+         value of the BeginEndField is of constant size. But depending
+         on the start configuration, different sizes can be chosen for
+         operations, both in time and for the different
+         directions.</t>
+
+       <t>In the smallest possible setup (e.g. sensor network with
+         very small MTUs), the BeginEndField can have a one-byte value
+         (2 flag bits plus 6 sequence number bits). For Ethernet, it
+         it is recommended to use a 3-byte value (2 flag bits plus 22
+         sequence number bits).</t>
+
+       <t>An idle fragmentation frame is encoded as a NDNLP packet
+         with a Begin-End Field but no NDNfragment element. Both the B-
+         and the E-flags should be set to 1 in this case.</t>
+
+      <t>The frist bytes of the first fragment are the outermost
+      NDN TLV of the encapsulated Packet.  One may learn the overall
+      length from the the outermost TLV length.</t>
+
+    <section anchor="NDNexample" title="Example">
+
+      <t>We present an example of the basic fragment encoding for a
+       payload of size larger than 253 Bytes and less than 64KB.</t>
+       <figure>
+        <artwork align="left"><![CDATA[
+                     1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++---------------+---------------+---------------+---------------+
+| type=NDNLP    | len=N+9                                       |
++---------------+---------------+---------------+---------------+
+| type=BeginEnd | len=3         |B|E|        FragSequence...    |
++---------------+---------------+---------------+---------------+
+| ..Number      | type=Fragment | len=N                         |
++---------------+---------------+---------------+---------------+
+|               | FragmentData (N bytes) ...                    /
++---------------+---------------+---------------+---------------+
+/                                                               /
++---------------+---------------+---------------+---------------+
+/               |
++---------------+
+]]></artwork>
+      </figure>
+      <t>
+        <list style="symbols">
+          <t>B: Begin flag.</t>
+          <t>E: End flag.</t>
+          <t>FragSequenceNumber: a 22-bit sequence number to identify the
+            fragment.</t>
+        </list>
+      </t>
+      </section>
+
+      <section anchor="NDNFramePacking" title="NDN Frame Packing">
+
+        <t>A sender/receiver pair may multiplex non-fragmentation
+         frames on the same link.  For example, in NDN, there may be
+         some NDNLP frames and some plain Interest or Data frames on
+         the same link between the same pairs.  NDNLP frames are
+         considered independently of other frames between the pair.</t>
+
+       <t>NDNLP does not allow for frame packing: A frame contains
+         only one out of the three Interest, Data and NDNLP packet
+         types.</t>
+      </section>
+
+      <section anchor="NDNxNumbers" title="Assigned Numbers for NDN Begin-End fragmentation">
+        <figure><artwork align="left"><![CDATA[
+           NDNLP-TYPE            0x64   // official, might change
+           BEGIN-END-FIELD-TYPE  0x5c   // inofficial
+           NDN-FRAGMENT-TYPE     0x52   // official, might change
+]]></artwork></figure>
+      </section>
+
+    </section>
+
+    <section anchor="Acknowledgements" title="Acknowledgements"> </section>
+
+    <!-- Possibly a 'Contributors' section ... -->
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This document adds new values to the CCNx Packet Type Registry
+        and CCNx Message Registry.</t>
+
+      <section anchor="iana_packettype" title="CCNx Packet Type Registry">
+        <figure>
+          <artwork align="left">
+Value    CCNx Packet Type                Definition
+----     ------------------------        ----------
+4        PT_FRAG                         See Section 4
+          </artwork>
+        </figure>
+      </section>
+
+      <section anchor="iana_message" title="CCNx Message Registry">
+        <figure>
+          <artwork align="left">
+Value    CCNx Message Type               Definition
+----     ------------------------        ----------
+5        T_FRAGMENT                      See Section 4
+16       T_FRAG_HEADER                   See Section 4
+17       T_FRAG_RESET                    See Section 4
+18       T_FRAG_RESET_ACK                See Section 4
+          </artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>This protocol has no security mechanisms and is vulnerable to
+      injection attacks by other devices on the same physical link as
+      the fragmentation peers.  One should use a secure Layer 2
+      protocol, such as 802.1AE (MacSec) to prevent such attacks.</t>
+    </section>
+
+  </middle>
+
+  <!--  *****BACK MATTER ***** -->
+
+  <back>
+    <!-- References split into informative and normative -->
+
+    <!-- There are 2 ways to insert reference entries from the citation libraries:
+    1. define an ENTITY at the top, and use "ampersand character"RFC2629; here (as shown)
+    2. simply use a PI "less than character"?rfc include="reference.RFC.2119.xml"?> here
+       (for I-Ds: include="reference.I-D.narten-iana-considerations-rfc2434bis.xml")
+
+    Both are cited textually in the same manner: by using xref elements.
+    If you use the PI option, xml2rfc will, by default, try to find included files in the same
+    directory as the including file. You can also define the XML_LIBRARY environment variable
+    with a value containing a set of directories to search.  These can be either in the local
+    filing system or remote ones accessed by http (http://domain/dir/... ).-->
+
+    <references title="Normative References">
+      <!--?rfc include="http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml"?-->
+      &RFC2119; </references>
+
+    <references title="Informative References">
+      <!-- Here we use entities that we defined at the beginning. -->
+      &RFC1982;
+      &RFC1990;
+      &RFC3552;
+      &RFC5226;
+      <!-- A reference written by by an organization not a person. -->
+
+      <reference anchor="CCNx" target="http://www.ccnx.org">
+        <front>
+          <title>CCNx Open Source</title>
+
+          <author>
+            <organization>PARC, Inc.</organization>
+          </author>
+
+          <date year="2007"/>
+        </front>
+      </reference>
+
+    <reference anchor="CCNLite" target="http://ccn-lite.net">
+      <front>
+        <title>CCN-Lite fragmentation</title>
+
+        <author initials="M." surname="Mosko" fullname="Marc Mosko">
+          <organization>PARC</organization>
+        </author>
+
+        <author initials="M." surname="Plass" fullname="Michael Plass">
+          <organization>PARC</organization>
+        </author>
+        <author initials="C" surname="Tschudin" fullname="Christian Tschudin">
+          <organization>University of Basel</organization>
+        </author>
+
+        <date year="Summer 2012"/>
+      </front>
+    </reference>
+
+    <reference anchor="python-sim" target="https://github.com/PARC/ccnx-beginendfragment-sim">
+        <front>
+            <title>ccnx-beginendfragment-sim</title>
+            <author fullname="Marc Mosko"/>
+            <date month="December" year="2016"/>
+        </front>
+    </reference>
+
+      <reference anchor="NDN" target="http://www.named-data.net/wp-content/uploads/2013/11/packetformat.pdf">
+        <front>
+          <title>NDN specification Documentation, Release 0.1a2</title>
+          <author fullname="NDN Project Team"/>
+          <date month="March" year="2014"/>
+        </front>
+      </reference>
+
+      <reference anchor="NDNLP" target="http://www.named-data.net/techreports.html">
+        <front>
+          <title>NDNLP: A Link Protocol for NDN</title>
+          <author initials="J." surname="Shi" fullname="J. Shi"/>
+          <author initials="B." surname="Zhang" fullname="B. Zhang"/>
+          <date month="July" year="2012"/>
+        </front>
+        <seriesInfo name="NDN Technical Report" value="NDN-0006"/>
+      </reference>
+
+      <reference anchor="CCNMessages" target="http://tools.ietf.org/html/draft-irtf-icnrg-ccnxmessages-04">
+        <front>
+          <title>CCNx Messages in TLV Format (Internet draft)</title>
+
+          <author initials='M.' surname='Mosko' fullname='Marc Mosko'>
+            <organization>PARC, Inc.</organization>
+          </author>
+          <author initials='I.' surname='Solis' fullname='Ignacio Solis'>
+            <organization>LinkedIn</organization>
+          </author>
+          <author initials='C.' surname='Wood' fullname='Christopher Wood'>
+            <organization>University of California</organization>
+          </author>
+          <date year="2016"/>
+        </front>
+      </reference>
+
+    </references>
+
+  </back>
+</rfc>

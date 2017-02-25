@@ -1,0 +1,564 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head profile="http://www.w3.org/2006/03/hcard http://dublincore.org/documents/2008/08/04/dc-html/">
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Content-Locked Encryption and Authentication of Nameless Objects</title>
+
+  <style type="text/css" title="Xml2Rfc (sans serif)">
+  /*<![CDATA[*/
+	  a {
+	  text-decoration: none;
+	  }
+      /* info code from SantaKlauss at http://www.madaboutstyle.com/tooltip2.html */
+      a.info {
+          /* This is the key. */
+          position: relative;
+          z-index: 24;
+          text-decoration: none;
+      }
+      a.info:hover {
+          z-index: 25;
+          color: #FFF; background-color: #900;
+      }
+      a.info span { display: none; }
+      a.info:hover span.info {
+          /* The span will display just on :hover state. */
+          display: block;
+          position: absolute;
+          font-size: smaller;
+          top: 2em; left: -5em; width: 15em;
+          padding: 2px; border: 1px solid #333;
+          color: #900; background-color: #EEE;
+          text-align: left;
+      }
+	  a.smpl {
+	  color: black;
+	  }
+	  a:hover {
+	  text-decoration: underline;
+	  }
+	  a:active {
+	  text-decoration: underline;
+	  }
+	  address {
+	  margin-top: 1em;
+	  margin-left: 2em;
+	  font-style: normal;
+	  }
+	  body {
+	  color: black;
+	  font-family: verdana, helvetica, arial, sans-serif;
+	  font-size: 10pt;
+	  max-width: 55em;
+	  
+	  }
+	  cite {
+	  font-style: normal;
+	  }
+	  dd {
+	  margin-right: 2em;
+	  }
+	  dl {
+	  margin-left: 2em;
+	  }
+	
+	  ul.empty {
+	  list-style-type: none;
+	  }
+	  ul.empty li {
+	  margin-top: .5em;
+	  }
+	  dl p {
+	  margin-left: 0em;
+	  }
+	  dt {
+	  margin-top: .5em;
+	  }
+	  h1 {
+	  font-size: 14pt;
+	  line-height: 21pt;
+	  page-break-after: avoid;
+	  }
+	  h1.np {
+	  page-break-before: always;
+	  }
+	  h1 a {
+	  color: #333333;
+	  }
+	  h2 {
+	  font-size: 12pt;
+	  line-height: 15pt;
+	  page-break-after: avoid;
+	  }
+	  h3, h4, h5, h6 {
+	  font-size: 10pt;
+	  page-break-after: avoid;
+	  }
+	  h2 a, h3 a, h4 a, h5 a, h6 a {
+	  color: black;
+	  }
+	  img {
+	  margin-left: 3em;
+	  }
+	  li {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  ol p {
+	  margin-left: 0em;
+	  }
+	  p {
+	  margin-left: 2em;
+	  margin-right: 2em;
+	  }
+	  pre {
+	  margin-left: 3em;
+	  background-color: lightyellow;
+	  padding: .25em;
+	  }
+	  pre.text2 {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f0f0f0;
+	  width: 69em;
+	  }
+	  pre.inline {
+	  background-color: white;
+	  padding: 0em;
+	  }
+	  pre.text {
+	  border-style: dotted;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  width: 69em;
+	  }
+	  pre.drawing {
+	  border-style: solid;
+	  border-width: 1px;
+	  background-color: #f8f8f8;
+	  padding: 2em;
+	  }
+	  table {
+	  margin-left: 2em;
+	  }
+	  table.tt {
+	  vertical-align: top;
+	  }
+	  table.full {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.headers {
+	  border-style: outset;
+	  border-width: 1px;
+	  }
+	  table.tt td {
+	  vertical-align: top;
+	  }
+	  table.full td {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.tt th {
+	  vertical-align: top;
+	  }
+	  table.full th {
+	  border-style: inset;
+	  border-width: 1px;
+	  }
+	  table.headers th {
+	  border-style: none none inset none;
+	  border-width: 1px;
+	  }
+	  table.left {
+	  margin-right: auto;
+	  }
+	  table.right {
+	  margin-left: auto;
+	  }
+	  table.center {
+	  margin-left: auto;
+	  margin-right: auto;
+	  }
+	  caption {
+	  caption-side: bottom;
+	  font-weight: bold;
+	  font-size: 9pt;
+	  margin-top: .5em;
+	  }
+	
+	  table.header {
+	  border-spacing: 1px;
+	  width: 95%;
+	  font-size: 10pt;
+	  color: white;
+	  }
+	  td.top {
+	  vertical-align: top;
+	  }
+	  td.topnowrap {
+	  vertical-align: top;
+	  white-space: nowrap; 
+	  }
+	  table.header td {
+	  background-color: gray;
+	  width: 50%;
+	  }
+	  table.header a {
+	  color: white;
+	  }
+	  td.reference {
+	  vertical-align: top;
+	  white-space: nowrap;
+	  padding-right: 1em;
+	  }
+	  thead {
+	  display:table-header-group;
+	  }
+	  ul.toc, ul.toc ul {
+	  list-style: none;
+	  margin-left: 1.5em;
+	  margin-right: 0em;
+	  padding-left: 0em;
+	  }
+	  ul.toc li {
+	  line-height: 150%;
+	  font-weight: bold;
+	  font-size: 10pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  ul.toc li li {
+	  line-height: normal;
+	  font-weight: normal;
+	  font-size: 9pt;
+	  margin-left: 0em;
+	  margin-right: 0em;
+	  }
+	  li.excluded {
+	  font-size: 0pt;
+	  }
+	  ul p {
+	  margin-left: 0em;
+	  }
+	
+	  .comment {
+	  background-color: yellow;
+	  }
+	  .center {
+	  text-align: center;
+	  }
+	  .error {
+	  color: red;
+	  font-style: italic;
+	  font-weight: bold;
+	  }
+	  .figure {
+	  font-weight: bold;
+	  text-align: center;
+	  font-size: 9pt;
+	  }
+	  .filename {
+	  color: #333333;
+	  font-weight: bold;
+	  font-size: 12pt;
+	  line-height: 21pt;
+	  text-align: center;
+	  }
+	  .fn {
+	  font-weight: bold;
+	  }
+	  .hidden {
+	  display: none;
+	  }
+	  .left {
+	  text-align: left;
+	  }
+	  .right {
+	  text-align: right;
+	  }
+	  .title {
+	  color: #990000;
+	  font-size: 18pt;
+	  line-height: 18pt;
+	  font-weight: bold;
+	  text-align: center;
+	  margin-top: 36pt;
+	  }
+	  .vcardline {
+	  display: block;
+	  }
+	  .warning {
+	  font-size: 14pt;
+	  background-color: yellow;
+	  }
+	
+	
+	  @media print {
+	  .noprint {
+		display: none;
+	  }
+	
+	  a {
+		color: black;
+		text-decoration: none;
+	  }
+	
+	  table.header {
+		width: 90%;
+	  }
+	
+	  td.header {
+		width: 50%;
+		color: black;
+		background-color: white;
+		vertical-align: top;
+		font-size: 12pt;
+	  }
+	
+	  ul.toc a::after {
+		content: leader('.') target-counter(attr(href), page);
+	  }
+	
+	  ul.ind li li a {
+		content: target-counter(attr(href), page);
+	  }
+	
+	  .print2col {
+		column-count: 2;
+		-moz-column-count: 2;
+		column-fill: auto;
+	  }
+	  }
+	
+	  @page {
+	  @top-left {
+		   content: "Internet-Draft"; 
+	  } 
+	  @top-right {
+		   content: "December 2010"; 
+	  } 
+	  @top-center {
+		   content: "Abbreviated Title";
+	  } 
+	  @bottom-left {
+		   content: "Doe"; 
+	  } 
+	  @bottom-center {
+		   content: "Expires June 2011"; 
+	  } 
+	  @bottom-right {
+		   content: "[Page " counter(page) "]"; 
+	  } 
+	  }
+	
+	  @page:first { 
+		@top-left {
+		  content: normal;
+		}
+		@top-right {
+		  content: normal;
+		}
+		@top-center {
+		  content: normal;
+		}
+	  }
+  /*]]>*/
+  </style>
+
+  <link href="#rfc.toc" rel="Contents"/>
+<link href="#rfc.section.1" rel="Chapter" title="1 Introduction"/>
+<link href="#rfc.section.1.1" rel="Chapter" title="1.1 Conventions and Terminology"/>
+<link href="#rfc.section.2" rel="Chapter" title="2 CLEAN Crypto"/>
+<link href="#rfc.section.3" rel="Chapter" title="3 CLEAN End Host Support"/>
+<link href="#rfc.section.4" rel="Chapter" title="4 FLIC Support"/>
+<link href="#rfc.section.5" rel="Chapter" title="5 Use Cases"/>
+<link href="#rfc.section.6" rel="Chapter" title="6 Security Considerations"/>
+<link href="#rfc.references" rel="Chapter" title="7 Normative References"/>
+<link href="#rfc.authors" rel="Chapter"/>
+
+
+  <meta name="generator" content="xml2rfc version 2.5.2 - http://tools.ietf.org/tools/xml2rfc" />
+  <link rel="schema.dct" href="http://purl.org/dc/terms/" />
+
+  <meta name="dct.creator" content="Wood, C." />
+  <meta name="dct.identifier" content="urn:ietf:id:draft-wood-icnrg-clean-00" />
+  <meta name="dct.issued" scheme="ISO8601" content="2017-2-24" />
+  <meta name="dct.abstract" content="This document specifies CCNx CLEAN &#8211; content-locked encryption and authentication of nameless objects &#8211; as a way of enabling encrypted and naturally de-duplicated content in CCN. CLEAN builds on the FLIC Manifest to convey the encryption information necessary to decrypt nameless content objects encapsulated within a Manifest.  As a result, CLEAN encrypts nameless content objects " />
+  <meta name="description" content="This document specifies CCNx CLEAN &#8211; content-locked encryption and authentication of nameless objects &#8211; as a way of enabling encrypted and naturally de-duplicated content in CCN. CLEAN builds on the FLIC Manifest to convey the encryption information necessary to decrypt nameless content objects encapsulated within a Manifest.  As a result, CLEAN encrypts nameless content objects " />
+
+</head>
+
+<body>
+
+  <table class="header">
+    <tbody>
+    
+    	<tr>
+  <td class="left">icnrg</td>
+  <td class="right">C. Wood</td>
+</tr>
+<tr>
+  <td class="left">Internet-Draft</td>
+  <td class="right">University of California Irvine</td>
+</tr>
+<tr>
+  <td class="left">Intended status: Informational</td>
+  <td class="right">February 24, 2017</td>
+</tr>
+<tr>
+  <td class="left">Expires: August 28, 2017</td>
+  <td class="right"></td>
+</tr>
+
+    	
+    </tbody>
+  </table>
+
+  <p class="title">Content-Locked Encryption and Authentication of Nameless Objects<br />
+  <span class="filename">draft-wood-icnrg-clean-00</span></p>
+  
+  <h1 id="rfc.abstract">
+  <a href="#rfc.abstract">Abstract</a>
+</h1>
+<p>This document specifies CCNx CLEAN &#8211; content-locked encryption and authentication of nameless objects &#8211; as a way of enabling encrypted and naturally de-duplicated content in CCN. CLEAN builds on the FLIC Manifest to convey the encryption information necessary to decrypt nameless content objects encapsulated within a Manifest.  As a result, CLEAN encrypts nameless content objects <em>by default</em> without any application-layer input.</p>
+<h1 id="rfc.status">
+  <a href="#rfc.status">Status of This Memo</a>
+</h1>
+<p>This Internet-Draft is submitted in full conformance with the provisions of BCP 78 and BCP 79.</p>
+<p>Internet-Drafts are working documents of the Internet Engineering Task Force (IETF).  Note that other groups may also distribute working documents as Internet-Drafts.  The list of current Internet-Drafts is at http://datatracker.ietf.org/drafts/current/.</p>
+<p>Internet-Drafts are draft documents valid for a maximum of six months and may be updated, replaced, or obsoleted by other documents at any time.  It is inappropriate to use Internet-Drafts as reference material or to cite them other than as "work in progress."</p>
+<p>This Internet-Draft will expire on August 28, 2017.</p>
+<h1 id="rfc.copyrightnotice">
+  <a href="#rfc.copyrightnotice">Copyright Notice</a>
+</h1>
+<p>Copyright (c) 2017 IETF Trust and the persons identified as the document authors.  All rights reserved.</p>
+<p>This document is subject to BCP 78 and the IETF Trust's Legal Provisions Relating to IETF Documents (http://trustee.ietf.org/license-info) in effect on the date of publication of this document.  Please review these documents carefully, as they describe your rights and restrictions with respect to this document.  Code Components extracted from this document must include Simplified BSD License text as described in Section 4.e of the Trust Legal Provisions and are provided without warranty as described in the Simplified BSD License.</p>
+
+  
+  <hr class="noprint" />
+  <h1 class="np" id="rfc.toc"><a href="#rfc.toc">Table of Contents</a></h1>
+  <ul class="toc">
+
+  	<li>1.   <a href="#rfc.section.1">Introduction</a></li>
+<ul><li>1.1.   <a href="#rfc.section.1.1">Conventions and Terminology</a></li>
+</ul><li>2.   <a href="#rfc.section.2">CLEAN Crypto</a></li>
+<li>3.   <a href="#rfc.section.3">CLEAN End Host Support</a></li>
+<li>4.   <a href="#rfc.section.4">FLIC Support</a></li>
+<li>5.   <a href="#rfc.section.5">Use Cases</a></li>
+<li>6.   <a href="#rfc.section.6">Security Considerations</a></li>
+<li>7.   <a href="#rfc.references">Normative References</a></li>
+<li><a href="#rfc.authors">Author's Address</a></li>
+
+
+  </ul>
+
+  <h1 id="rfc.section.1"><a href="#rfc.section.1">1.</a> <a href="#introduction" id="introduction">Introduction</a></h1>
+<p id="rfc.section.1.p.1">In CCN, nameless objects are content objects which do not carry a Name TLV field.  Thus, a necessary requisite to retrieve them from the network is to know their respective ContentObjectHashRestriction (or ContentId). A ContentId is the cryptographic hash of a packet. A router may only forward a nameless content object if its cryptographic hash digest matches that which is specified in the ContentId of the corresponding request.</p>
+<p id="rfc.section.1.p.2">Manifests are network-level structures used to convey ContentIds to consumers so that they may request nameless content objects. These are necessary since a consumer cannot obtain the ContentId of a nameless content object which it has not yet retrieved.  Manifests are typically used to group segments of a single, large piece of data under a common name. For example, imagine the consumer wishes to obtain the data named /foo/bar, which has a total size well beyond the 64KB limit imposed by the CCN packet format. To transfer /foo/bar efficiently, the producer segments the /foo/bar data into fixed size chunks and, for each chunk, creates a nameless content object. Then, the producer creates a Manifest with the name /foo/bar which contains the references to each of these constituent nameless object parts. To fetch /foo/bar, a consumer then (a) issues a request for the name /foo/bar, (b) receives, verifies, and parses the Manifest, and (c) subsequently issues requests for each nameless content object using the provided ContentIds. (See <a href="#CCNxSemantics">[CCNxSemantics]</a> for more details.) The <a href="#FLIC">[FLIC]</a> data structure is one type of CCN Manifest data structure.</p>
+<p id="rfc.section.1.p.3">By default, the data contained inside each nameless content object is unencrypted.  If confidentiality is required, the producer application must explicitly encrypt the data prior to transfer. This situation is not ideal. To improve this baseline scenario, we introduce CCNx CLEAN &#8211; content-locked encryption and authentication of nameless objects. CLEAN builds on recent advances in message-locked encryption (<a href="#MLE">[MLE]</a>) to encrypt nameless objects by default without invalidating their natural de-duplication properties.</p>
+<h1 id="rfc.section.1.1"><a href="#rfc.section.1.1">1.1.</a> <a href="#conventions-and-terminology" id="conventions-and-terminology">Conventions and Terminology</a></h1>
+<p id="rfc.section.1.1.p.1">The key words &#8220;MUST&#8221;, &#8220;MUST NOT&#8221;, &#8220;REQUIRED&#8221;, &#8220;SHALL&#8221;, &#8220;SHALL NOT&#8221;, &#8220;SHOULD&#8221;, &#8220;SHOULD NOT&#8221;, &#8220;RECOMMENDED&#8221;, &#8220;NOT RECOMMENDED&#8221;, &#8220;MAY&#8221;, and &#8220;OPTIONAL&#8221; in this document are to be interpreted as described in RFC 2119 <a href="#RFC2119">[RFC2119]</a>.</p>
+<p id="rfc.section.1.1.p.2">The following terms are used:</p>
+<p id="rfc.section.1.1.p.3">Nameless object: A CCN content object packet which contain a Name TLV field.</p>
+<h1 id="rfc.section.2"><a href="#rfc.section.2">2.</a> <a href="#clean-crypto" id="clean-crypto">CLEAN Crypto</a></h1>
+<p id="rfc.section.2.p.1">CLEAN only relies on MLE, which is a form of encryption by which the encryption key for a message is derived from the message itself. For example, a message M may be encrypted by a key K = H(M), where H is a suitable cryptographic hash function for use in MLE constructions. The encryption of M is thus computed as M&#8217; = Enc(H(M), M), where Enc is a symmetric-key encryption algorithm suitable for MLE.  This procedure is deterministic; two equal messages will be encrypted to the same ciphertext value. As a result, MLE supports natural de-duplication of data based on ciphertext equality.</p>
+<h1 id="rfc.section.3"><a href="#rfc.section.3">3.</a> <a href="#clean-end-host-support" id="clean-end-host-support">CLEAN End Host Support</a></h1>
+<p id="rfc.section.3.p.1">Let D be a piece of data for which a producer P would normally create a Manifest with name N. Let C_1,&#8230;,C_n be the n nameless content objects created from D. The CLEAN construction works as follows:</p>
+<p/>
+
+<ol>
+  <li>P computes k = KDF(H(D)), where KDF is any suitable key derivation function.</li>
+  <li>For each C_i in C_1,&#8230;,C_n, P derives k_i = KDF(k || i) uses it to compute C_i&#8217; = Enc(k, C_i).</li>
+  <li>From C_1&#8217;,&#8230;,C_n&#8217;, P creates the manifest M(N) as per the <a href="#FLIC">[FLIC]</a> specification.</li>
+  <li>P inserts H(D) into the root node of M(N). (This is described in the following section.)</li>
+</ol>
+<h1 id="rfc.section.4"><a href="#rfc.section.4">4.</a> <a href="#flic-support" id="flic-support">FLIC Support</a></h1>
+<p id="rfc.section.4.p.1">The <a href="#FLIC">[FLIC]</a> format already includes the metadata value OverallDataDigest. For a given FLIC node N, this value corresponds to H(D), where D is the array of application data in the nameless content objects contained in N. Therefore, CLEAN does not require any changes in the FLIC format.</p>
+<h1 id="rfc.section.5"><a href="#rfc.section.5">5.</a> <a href="#use-cases" id="use-cases">Use Cases</a></h1>
+<p id="rfc.section.5.p.1">Since the data digest (i.e., H(D)) is contained in the root manifest, the confidentiality of nameless content objects reduces to that of the root manifest. This has the following benefits:</p>
+<p/>
+
+<ol>
+  <li>If access control to D is needed, P need only apply the necessary access control scheme to the root manifest so that H(D) is not leaked.</li>
+  <li>If D is public data that a consumer Cr wishes to retrieve anonymously, the root manifest can be requested over a secure, ephemeral session between Cr and P. One way to establish such a channel is with <a href="#CCNxKE">[CCNxKE]</a>.</li>
+</ol>
+<p id="rfc.section.5.p.3">In both cases, the nameless content objects that carry segments of D remain protected without applying any type of access control to them individually.</p>
+<h1 id="rfc.section.6"><a href="#rfc.section.6">6.</a> <a href="#security-considerations" id="security-considerations">Security Considerations</a></h1>
+<p id="rfc.section.6.p.1">The CLEAN security model depends on the root manifest being protected either at rest or, optionally, in transit. If the root is protected at rest via some access control mechanism, then CLEAN remains secure in the MLE model. MLE security also holds if the root is encrypted only in transit over a secure session,</p>
+<h1 id="rfc.references"><a href="#rfc.references">7.</a> Normative References</h1>
+<table>
+  <tbody>
+    <tr>
+      <td class="reference">
+        <b id="CCNxKE">[CCNxKE]</b>
+      </td>
+      <td class="top"><a title="PARC, Inc.">Marc Mosko, .</a>, <a title="PARC, Inc.">Ersin Uzun, .</a> and <a title="PARC, Inc.">Christopher. Wood</a>, "<a href="https://datatracker.ietf.org/doc/draft-wood-icnrg-ccnxkeyexchange/">CCNx Key Exchange Protocol Version 1.0</a>", n.d..</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="CCNxSemantics">[CCNxSemantics]</b>
+      </td>
+      <td class="top"><a title="PARC, Inc.">Mosko, M.</a>, <a title="PARC, Inc.">Solis, I.</a> and <a title="PARC, Inc.">C. Wood</a>, "<a href="https://tools.ietf.org/html/draft-irtf-icnrg-ccnxsemantics-03">CCNx Semantics</a>", n.d..</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="FLIC">[FLIC]</b>
+      </td>
+      <td class="top"><a title="University of Basel">Christian Tschudin, .</a> and <a title="University of California Irvine">Christopher. Wood</a>, "<a>File-Like ICN Collection (FLIC)</a>", n.d..</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="MLE">[MLE]</b>
+      </td>
+      <td class="top"><a title="University of California San Diego">Mihir Bellare, .</a>, <a title="University of California San Diego">Sriram Keelveedhi, .</a> and <a title="University of Wisconsin&#x2013;Madison">. Thomas Ristenpart</a>, "<a href="https://eprint.iacr.org/2012/631.pdf">Message-locked encryption and secure deduplication</a>", n.d..</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC2119">[RFC2119]</b>
+      </td>
+      <td class="top"><a>Bradner, S.</a>, "<a href="http://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>", BCP 14, RFC 2119, DOI 10.17487/RFC2119, March 1997.</td>
+    </tr>
+    <tr>
+      <td class="reference">
+        <b id="RFC4987">[RFC4987]</b>
+      </td>
+      <td class="top"><a>Eddy, W.</a>, "<a href="http://tools.ietf.org/html/rfc4987">TCP SYN Flooding Attacks and Common Mitigations</a>", RFC 4987, DOI 10.17487/RFC4987, August 2007.</td>
+    </tr>
+  </tbody>
+</table>
+<h1 id="rfc.authors">
+  <a href="#rfc.authors">Author's Address</a>
+</h1>
+<div class="avoidbreak">
+  <address class="vcard">
+	<span class="vcardline">
+	  <span class="fn">Christopher A. Wood</span> 
+	  <span class="n hidden">
+		<span class="family-name">Wood</span>
+	  </span>
+	</span>
+	<span class="org vcardline">University of California Irvine</span>
+	<span class="adr">
+	  
+	  <span class="vcardline">
+		<span class="locality"></span> 
+		<span class="region"></span>
+		<span class="code"></span>
+	  </span>
+	  <span class="country-name vcardline"></span>
+	</span>
+	<span class="vcardline">EMail: <a href="mailto:woodc1@uci.edu">woodc1@uci.edu</a></span>
+
+  </address>
+</div>
+
+</body>
+</html>
