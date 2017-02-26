@@ -7,5 +7,6 @@ ifneq (,$(shell git submodule status lib 2>/dev/null))
 else
 	git clone --depth 10 -b master https://github.com/martinthomson/i-d-template.git lib
 endif
+	mkdir -p build
 	mv *.html build
 	mv *.txt build
