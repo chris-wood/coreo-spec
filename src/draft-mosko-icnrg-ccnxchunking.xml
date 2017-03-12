@@ -40,7 +40,7 @@
 
 <?rfc private="" ?>
 
-<rfc category="exp" docName="draft-mosko-icnrg-ccnxchunking-02" ipr="trust200902">
+<rfc category="exp" docName="draft-mosko-icnrg-ccnxchunking-latest" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902

@@ -1,7 +1,7 @@
 ---
 title: Encrypted Sessions In CCNx (ESIC)
 abbrev: CCNx-ESIC
-docname: draft-wood-icnrg-esic-00
+docname: draft-wood-icnrg-esic-latest
 category: exp
 
 ipr: trust200902

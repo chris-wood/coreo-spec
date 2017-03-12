@@ -1,7 +1,7 @@
 ---
 title: CCNx Key Exchange Protocol Version 1.0
 abbrev: CCNxKE
-docname: draft-wood-ccnxkeyexchange-02
+docname: draft-wood-ccnxkeyexchange-latest
 category: exp
 
 ipr: pre5378Trust200902
@@ -125,9 +125,9 @@ normative:
             ins: C. Wood
             org: University of California, Irvine
     date: 2016-1-11
-  TLVENCAP:
-    target: https://github.com/PARC/ccnx-tlvencap-rfc
-    title: CCNx Packet Encapsulation
+  ESIC:
+    target: https://datatracker.ietf.org/doc/draft-wood-icnrg-esic/
+    title: Encrypted Sessions In CCNx (ESIC)
     author:
         -
             ins: M. Mosko
@@ -1011,8 +1011,8 @@ keys. The previous traffic key must be securely discarded.
 
 Once traffic keys and the associated IVs are derived from the CCNxKE protocol,
 all subsequent Interest and Content Object messages are encrypted. Packet encryption
-uses the TLV encapsulation mechanism specified in {{TLVENCAP}}. For Interest
-encryption, the Salt in {{TLVENCAP}} is set to the packet sequence number.
+uses the TLV encapsulation mechanism specified in {{ESIC}}. For Interest
+encryption, the Salt in {{ESIC}} is set to the packet sequence number.
 The same substitution is done for Content Object encryption. Similarly, the
 KeyId field is substituted with the SessionID derived by the CCNxKE protocol.
 Packet sequence numbers are 64-bit numbers initialized to 0 when after the

@@ -42,7 +42,7 @@
 <?rfc private="" ?>
 
 <!-- draft-mosko-icnrg-beginendfragment-02 -->
-<rfc category="exp" docName="draft-mosko-icnrg-beginendfragment-02" ipr="trust200902">
+<rfc category="exp" docName="draft-mosko-icnrg-beginendfragment-latest" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -111,7 +111,7 @@
      </address>
     </author>
 
-    <date month="February" year="2016"/>
+    <date/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
         in the current day for you. If only the current year is specified, xml2rfc will fill

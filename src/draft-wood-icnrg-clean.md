@@ -1,11 +1,10 @@
 ---
 title: Content-Locked Encryption and Authentication of Nameless Objects
 abbrev: CCNxCLEAN
-docname: draft-wood-icnrg-clean-00
+docname: draft-wood-icnrg-clean-latest
 category: exp
 
-<!-- ipr: pre5378Trust200902 -->
-<!-- ipr: None -->
+ipr: pre5378Trust200902
 area: General
 workgroup: icnrg
 keyword: Internet-Draft
@@ -154,9 +153,13 @@ Let D be a piece of data for which a producer P would normally
 create a Manifest with name N, i.e., M(N). Let C_1,...,C_n be the n nameless content
 object *payloads* created from D. The CLEAN construction works as follows:
 
-1. P computes k = KDF(H(D)), where KDF is any suitable key derivation function, e.g., HKDF {{RFC5869}}
-2. For each C_i in C_1,...,C_n, P derives k_i = KDF(k || i) uses it to compute C_i' = Enc(k, C_i).
+1. P computes k = KDF(H(D)), where KDF is a suitable key derivation function, such as HKDF {{RFC5869}}.
+
+2. For each C_i in C_1,...,C_n, P derives k_i = KDF(k + i) uses it to compute C_i' = Enc(k, C_i), where '+' is
+concatenation.
+
 3. From C_1',...,C_n', P creates the manifest M(N) as per the {{FLIC}} specification.
+
 4. P inserts H(D) into the root node of M(N). (This is described in the following section.)
 
 When complete, P publishes the manifest tree M(N) and its constituent nameless object pieces.
@@ -177,7 +180,7 @@ benefits:
 
 1. If access control to D is needed, P need only apply the necessary access control scheme
 to the root manifest so that H(D) is not leaked. This permits the encrypted nameless
-object leaves to be deduplicated naturally in the network.
+object leaves to be de-duplicated naturally in the network.
 2. If D is public data that a consumer Cr wishes to retrieve privately, the root manifest
 can be requested over a secure, ephemeral session between Cr and P. One way to establish
 such a channel is with {{CCNxKE}}. Of course, if D is public, then any malicious consumer Adv
