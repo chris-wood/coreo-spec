@@ -1,9 +1,8 @@
 ---
 title: File-Like ICN Collection (FLIC)
 abbrev: ICN-FLIC
-docname: draft-tschudin-icnrg-flic-02
-date: 2017-1-9
-category: info
+docname: draft-tschudin-icnrg-flic-03
+category: exp
 
 ipr: trust200902
 area: General
@@ -32,13 +31,13 @@ normative:
         author:
             -
                 name: M. Mosko
-                ins: PARC
+                ins: PARC, Inc.
             -
                 name: I. Solis
                 ins: LinkedIn
             -
                 name: C. Wood
-                ins: PARC
+                org: University of California, Irvine
 
 --- abstract
 
@@ -611,6 +610,8 @@ Interest: name is locator, use implicitDigest name component as selector.
 
 # Security Considerations
 
-None.
+The payloads of FLIC leaf nodes may be encrypted prior to construction. This does
+not have any impact on the FLIC construction process since all data is treated
+as if it were opaque.
 
 --- back

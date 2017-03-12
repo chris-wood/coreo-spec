@@ -119,7 +119,7 @@
      </address>
     </author>
 
-    <date month="February" year="2016"/>
+    <date/>
 
     <!-- If the month and year are both specified and are the current ones, xml2rfc will fill
         in the current day for you. If only the current year is specified, xml2rfc will fill
@@ -147,25 +147,18 @@
         keywords will be used for the search engine. -->
 
     <abstract>
-      <t>This document specifies the encoding of CCNx messages using a TLV Packet
-        specification.
-        CCNx messages follow  the CCNx Semantics specification.
-        This document defines the TLV types
-        used by each message element and the encoding of each value.</t>
+      <t>This document specifies version "1" of CCNx message TLV packet format,
+          including the TLV types used by each message element and the encoding of each value.
+          The semantics of CCNx messages follow the CCNx Semantics specification.</t>
     </abstract>
   </front>
 
   <middle>
       <section title="Introduction">
-       <t>This document specifies a Type-Length-Value (TLV) packet format and the TLV type and value encodings for the CCNx network protocol
-         as specified in <xref target="CCNSemantics"></xref>.  This draft describes the mandatory and common optional
-         fields of Interests and Content Objects.  Several additional protocols specified in their own documents are
-         in use that extend this specification.</t>
-
-
-       <t>A full description of the semantics of CCNx messages, providing an encoding-free description of
-         CCNx messages and message elements, may be found in <xref target="CCNSemantics"></xref> </t>
-
+       <t>This document specifies a Type-Length-Value (TLV) packet format and the TLV type and value encodings for CCNx messages.
+           A full description of the CCNx network protocol, providing an encoding-free description of
+           CCNx messages and message elements, may be found in <xref target="CCNSemantics"></xref>. Several
+           additional protocols specified in their own documents are in use that extend this specification.</t>
 
       <t>This document specifies: <list style="symbols">
         <t>The TLV packet format.</t>
@@ -186,8 +179,7 @@
       </list>
       </t>
        <t>The type values in <xref target="IANA"/> represent the values in common usage today.
-         These values may change pending IANA assignments.
-         All type values are
+         These values may change pending IANA assignments. All type values are
          relative to their parent containers. It is possible for a TLV to redefine a type value defined by
          its parent.  For example, each level of a nested TLV structure might define a "type = 1" with
          a completely different meaning.</t>
@@ -209,16 +201,15 @@
     <section anchor="definitions" title="Definitions">
       <t>
         <list style="symbols">
-          <t>HSVLI: Hierarchically structured variable length identifier, also called a Name. It is
-            an ordered list of path segments, which may be variable length octet strings. In
-            human-readable form, it is represented in URI format as
-	          ccnx:/path/part. There is no host or query string.</t>
-          <t>Name: see HSVLI</t>
+          <t>Name: A hierarchically structured variable length identifier. It is an ordered list of path
+              segments, which may be variable length octet strings. In human-readable form, it is represented
+              in URI format as ccnx:/path/part. There is no host or query string. See <xref target="CCNxURI"></xref>
+              for complete details.</t>
           <t>Interest: A message requesting a Content Object with a matching Name and other
             optional selectors to choose from multiple objects with the same Name. Any
             Content Object with a Name and optional selectors that matches the Name and optional selectors of the
             Interest is said to satisfy the Interest.</t>
-          <t>Content Object: A data object sent in response to an Interest request. It has an HSVLI Name and
+          <t>Content Object: A data object sent in response to an Interest request. It has an (optional) Name and
             a content payload that are bound together via cryptographic means. </t>
         </list>
       </t>
@@ -228,8 +219,7 @@
          <t>We use 16-bit Type and 16-bit Length
           fields to encode TLV based packets. This provides 64K different possible types and value field lengths
           of up to 64KiB.  With 64K possible types, there should be sufficient space for basic protocol types,
-          while also allowing ample room for experimentation, application use, and
-          growth.</t>
+          while also allowing ample room for experimentation, application use, and growth.</t>
 
           <t>Specifically, the TLV types in the range 0x1000 - 0x1FFF are reserved for experimental use.
           These type values are reserved in all TLV container contexts. In the event that more space is needed,
@@ -241,7 +231,6 @@
               <ttcol align="center">Abbrev</ttcol>
               <ttcol align="center">Name</ttcol>
               <ttcol align="left">Description</ttcol>
-
 
              <c>T_ORG</c>
              <c><xref target="vendor">Vendor Specific Information</xref></c>
@@ -294,7 +283,6 @@
 ]]></artwork>
       </figure>
 
-
        <t>The packet payload is a TLV encoding of the CCNx message, followed by optional
        Validation TLVs.</t>
           <figure>
@@ -321,12 +309,10 @@
         and hop-by-hop headers allows a network stack to discard the headers
         and operate only on the embedded message.</t>
 
-
       <t>The range of bytes protected by the Validation includes the CCNx Message and the
         ValidationAlgorithm.</t>
 
-      <t>The ContentObjectHash begins with the CCNx Message
-        and ends at the tail of the packet.</t>
+      <t>The ContentObjectHash begins with the CCNx Message and ends at the tail of the packet.</t>
         </section>
 
          <section anchor="header" title="Fixed Headers">
@@ -851,7 +837,7 @@
                   A good convention is to put the application's identity in the
                   name prior to using these name segments.</t>
 
-                <t>For example, a name like "ccnx:/foo/bar/yo"
+                <t>For example, a name like "ccnx:/foo/bar/hi"
                   would be encoded as:
                   <figure>
 
@@ -867,9 +853,9 @@
 +---------------+---------------+---------------+---------------+
 |               |            %x03 (3)           |       b       |
 +---------------+---------------+---------------+---------------+
-|      a                r       |           (T_NAME_SEGMENT)   |
+|      a                r       |           (T_NAME_SEGMENT)    |
 +---------------+---------------+---------------+---------------+
-|           %x02 (2)            |        y      |       o       |
+|           %x02 (2)            |       h       |       i       |
 +---------------+---------------+---------------+---------------+
 ]]></artwork>
                   </figure>
@@ -1151,10 +1137,6 @@
               <c><xref target="MAC">HMAC-SHA256</xref></c>
               <c>HMAC (RFC 2104) using SHA256 hash.</c>
 
-              <c>T_VMAC-128</c>
-              <c><xref target="MAC">VMAC-128</xref></c>
-              <c>VMAC with 128bit tags <xref target="VMAC"></xref></c>
-
               <c>T_RSA-SHA256</c>
               <c><xref target="signature_val">RSA-SHA256</xref></c>
               <c>RSA public key signature using SHA256 digest.</c>
@@ -1192,9 +1174,9 @@
 
             <section anchor="vdd" title="Validation Dependent Data">
               <t>Different Validation Algorithms require access to different pieces of data contained in the ValidationAlgorithm
-                TLV.
-              As described above, Key Ids, Key Locators, Public Keys, Certificates, Links and Key Names all play a role
-              in different Validation Algorithms.</t>
+                TLV. As described above, Key Ids, Key Locators, Public Keys, Certificates, Links and Key Names all play a role
+                in different Validation Algorithms. Any number of Validation Dependent Data containers can be present in a Validation
+                Algorithm TLV.</t>
 
               <t>Following is a table of CCNx ValidationType dependent data types:</t>
               <texttable anchor="vddtypes" title="CCNx Validation Dependent Data Types">
@@ -1813,18 +1795,14 @@
           <c><xref target="ValAlg">Validation Algorithm</xref></c>
 
           <c>5</c>
-          <c>T_VMAC-128</c>
-          <c><xref target="ValAlg">Validation Algorithm</xref></c>
-
-          <c>6</c>
           <c>T_RSA-SHA256</c>
           <c><xref target="ValAlg">Validation Algorithm</xref></c>
 
-          <c>7</c>
+          <c>6</c>
           <c>EC-SECP-256K1</c>
           <c><xref target="ValAlg">Validation Algorithm</xref></c>
 
-          <c>8</c>
+          <c>7</c>
           <c>EC-SECP-384R1</c>
           <c><xref target="ValAlg">Validation Algorithm</xref></c>
 
@@ -2035,19 +2013,6 @@
         </front>
       </reference>
 
-      <reference anchor="VMAC" target="http://www.fastcrypto.org/vmac/draft-krovetz-vmac-01.txt">
-        <front>
-          <title>VMAC: Message Authentication Code using Universal Hashing</title>
-          <author initials='T.' surname='Krovertz' fullname='Ted Krovetz'>
-            <organization>CSU Sacramento</organization>
-          </author>
-          <author initials='W.' surname='Dai' fullname='Wei Dai'>
-            <organization>Bitvise Limited</organization>
-          </author>
-
-          <date year="2007"/>
-        </front>
-      </reference>
       <reference anchor="ECC" target="http://www.secg.org/sec2-v2.pdf">
         <front>
           <title>SEC 2: Recommended Elliptic Curve Domain Parameters</title>

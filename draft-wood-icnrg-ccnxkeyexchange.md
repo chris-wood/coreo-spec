@@ -1,11 +1,10 @@
 ---
 title: CCNx Key Exchange Protocol Version 1.0
 abbrev: CCNxKE
-docname: draft-wood-ccnxkeyexchange-01
-category: std
+docname: draft-wood-ccnxkeyexchange-02
+category: exp
 
-<!-- ipr: pre5378Trust200902 -->
-<!-- ipr: None -->
+ipr: pre5378Trust200902
 area: General
 workgroup: icnrg
 keyword: Internet-Draft
@@ -35,36 +34,21 @@ author:
 -
     ins: C. A. Wood
     name: Christopher A. Wood
-    organization: PARC
-    email: christopher.wood@parc.com
+    organization: University of California Irvine
+    email: woodc1@uci.edu
 
 normative:
-  <!-- RFC2104: --> <!-- HMAC --> -->
   RFC2119:
-  <!-- RFC3447: --> <!--  Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1--> -->
-  <!-- RFC5280: -->
-  <!-- RFC5288: -->
-  <!-- RFC5289: -->
-  <!-- RFC6209: -->
-  <!-- RFC6367: -->
-  <!-- RFC6655: -->
-  <!-- RFC7251: -->
-  RFC4086:  <!-- randomness reqs -->
-  RFC5869: <!-- hkdf -->
-  RFC2631: <!-- DH key exchange -->
-  RFC4987: <!-- syn flooding -->
+  RFC4086:
+  RFC5869:
+  RFC2631:
+  RFC4987:
   RFC6066:
-  SALSA20:
   RFC6479:
   RFC4302:
   RFC6347:
   RFC4303:
-  SALSA20:
-    title: "Salsa20 specification"
-    date: 2005-4
-    author:
-        ins: D. Bernstein
-    seriesinfo: www.http://cr.yp.to/snuffle/spec.pdf
+  RFC7539:
   QUIC:
           title: "QUIC: A UDP-Based Secure and Reliable Transport for HTTP/2"
           author:
@@ -128,7 +112,7 @@ normative:
     seriesinfo:
       ANSI: ANS X9.62-2005
   CCNxMessages:
-    target: https://tools.ietf.org/html/draft-irtf-icnrg-ccnxmessages-01
+    target: https://datatracker.ietf.org/doc/draft-irtf-icnrg-ccnxmessages/
     title: "CCNx Messages in TLV Format"
     author:
         -
@@ -137,6 +121,9 @@ normative:
         -
             ins: I. Solis
             org: PARC, Inc.
+        -
+            ins: C. Wood
+            org: University of California, Irvine
     date: 2016-1-11
   TLVENCAP:
     target: https://github.com/PARC/ccnx-tlvencap-rfc
@@ -147,7 +134,7 @@ normative:
             org: PARC, Inc.
         -
             ins: C. Wood
-            org: PARC, Inc.
+            org: University of California, Irvine
 
 informative:
   RFC5077: <!-- Transport Layer Security (TLS) Session Resumption without Server-Side State -->
@@ -611,7 +598,7 @@ only supported algorithms are:
 from the FSK key-derivation step and the last eight are taken from the initial consumer
 nonce.
 
-* Salsa20 {{SALSA20}} (stream cipher) with Poly1305 (MAC).
+* ChaCha20+Poly1305 {{RFC7539}}.
 
 The key sizes and related parameters are provided with the AEAD tag in the CONFIG
 structure.

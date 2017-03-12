@@ -4,13 +4,13 @@
 
 ICNRG Working Group                                          C. Tschudin
 Internet-Draft                                       University of Basel
-Intended status: Informational                                   C. Wood
-Expires: July 13, 2017                   University of California Irvine
-                                                        January 09, 2017
+Intended status: Experimental                                    C. Wood
+Expires: September 12, 2017              University of California Irvine
+                                                          March 11, 2017
 
 
                     File-Like ICN Collection (FLIC)
-                      draft-tschudin-icnrg-flic-02
+                      draft-tschudin-icnrg-flic-03
 
 Abstract
 
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on July 13, 2017.
+   This Internet-Draft will expire on September 12, 2017.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 1]
+Tschudin & Wood        Expires September 12, 2017               [Page 1]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    to this document.  Code Components extracted from this document must
@@ -87,7 +87,7 @@ Table of Contents
    6.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
      6.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
      6.2.  URIs  . . . . . . . . . . . . . . . . . . . . . . . . . .  14
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  14
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 2]
+Tschudin & Wood        Expires September 12, 2017               [Page 2]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
                             root manifest
@@ -165,9 +165,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 3]
+Tschudin & Wood        Expires September 12, 2017               [Page 3]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
       *  Enhance the manifest such that it can serve as a "database
@@ -221,9 +221,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 4]
+Tschudin & Wood        Expires September 12, 2017               [Page 4]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    o  None of the ICN objects used in FLIC are allowed to be chunked,
@@ -277,9 +277,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 5]
+Tschudin & Wood        Expires September 12, 2017               [Page 5]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    data1   <-- h1  -  -  -  -  -  -  -  -  root mfst
@@ -333,9 +333,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 6]
+Tschudin & Wood        Expires September 12, 2017               [Page 6]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    root manifest=     DDDDDMM
@@ -389,9 +389,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 7]
+Tschudin & Wood        Expires September 12, 2017               [Page 7]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    Input:
@@ -445,9 +445,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 8]
+Tschudin & Wood        Expires September 12, 2017               [Page 8]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
   * Locator - provides a new routing hint (name prefix) where the
@@ -501,9 +501,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                 [Page 9]
+Tschudin & Wood        Expires September 12, 2017               [Page 9]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    Objects:
@@ -557,9 +557,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                [Page 10]
+Tschudin & Wood        Expires September 12, 2017              [Page 10]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    In a BlockHashGroup with k pointers, the size of P_k is equal to:
@@ -613,9 +613,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                [Page 11]
+Tschudin & Wood        Expires September 12, 2017              [Page 11]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    old data < -  -  -  mfst_old <-- h_old -  - mfst_new
@@ -669,9 +669,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                [Page 12]
+Tschudin & Wood        Expires September 12, 2017              [Page 12]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
 4.  Encoding
@@ -725,9 +725,9 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-Tschudin & Wood           Expires July 13, 2017                [Page 13]
+Tschudin & Wood        Expires September 12, 2017              [Page 13]
 
-Internet-Draft                  ICN-FLIC                    January 2017
+Internet-Draft                  ICN-FLIC                      March 2017
 
 
    (Data/0x6
@@ -757,20 +757,34 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 5.  Security Considerations
 
-   None.
+   The payloads of FLIC leaf nodes may be encrypted prior to
+   construction.  This does not have any impact on the FLIC construction
+   process since all data is treated as if it were opaque.
 
 6.  References
 
 6.1.  Normative References
 
    [CCNxMessages]
-              PARC, ., LinkedIn, ., and . PARC, "CCNx Messages in TLV
-              Format", n.d., <https://datatracker.ietf.org/doc/draft-
-              irtf-icnrg-ccnxmessages/>.
+              PARC, Inc, ., LinkedIn, ., and C. Wood, "CCNx Messages in
+              TLV Format", n.d., <https://datatracker.ietf.org/doc/
+              draft-irtf-icnrg-ccnxmessages/>.
 
 6.2.  URIs
 
    [1] http://plan9.bell-labs.com/sys/doc/venti/venti.pdf
+
+
+
+
+
+
+
+
+Tschudin & Wood        Expires September 12, 2017              [Page 14]
+
+Internet-Draft                  ICN-FLIC                      March 2017
+
 
 Authors' Addresses
 
@@ -778,12 +792,6 @@ Authors' Addresses
    University of Basel
 
    Email: christian.tschudin@unibas.ch
-
-
-
-Tschudin & Wood           Expires July 13, 2017                [Page 14]
-
-Internet-Draft                  ICN-FLIC                    January 2017
 
 
    Christopher A. Wood
@@ -829,12 +837,4 @@ Internet-Draft                  ICN-FLIC                    January 2017
 
 
 
-
-
-
-
-
-
-
-
-Tschudin & Wood           Expires July 13, 2017                [Page 15]
+Tschudin & Wood        Expires September 12, 2017              [Page 15]

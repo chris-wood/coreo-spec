@@ -5,8 +5,8 @@
 ICNRG                                                           M. Mosko
 Internet-Draft                                                PARC, Inc.
 Intended status: Experimental                                    C. Wood
-Expires: August 4, 2016                  University of California Irvine
-                                                           February 2016
+Expires: September 12, 2017              University of California Irvine
+                                                          March 11, 2017
 
 
                           The CCNx URI Scheme
@@ -39,11 +39,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on August 4, 2016.
+   This Internet-Draft will expire on September 12, 2017.
 
 Copyright Notice
 
-   Copyright (c) 2016 IETF Trust and the persons identified as the
+   Copyright (c) 2017 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 1]
+Mosko & Wood           Expires September 12, 2017               [Page 1]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    carefully, as they describe your rights and restrictions with respect
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 2]
+Mosko & Wood           Expires September 12, 2017               [Page 2]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    document version, there is an ambiguity because base64(0xbdea) is the
@@ -165,9 +165,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 3]
+Mosko & Wood           Expires September 12, 2017               [Page 3]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
 2.  URI path segment grammar for label=value pairs
@@ -221,9 +221,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 4]
+Mosko & Wood           Expires September 12, 2017               [Page 4]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    LS-URI           = scheme ":" ls-hier-part ["?" ls-query]
@@ -277,9 +277,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 5]
+Mosko & Wood           Expires September 12, 2017               [Page 5]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    processed, and MAY disallow them.  A v-segment is an implied type.
@@ -333,9 +333,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 6]
+Mosko & Wood           Expires September 12, 2017               [Page 6]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
 2.2.  URI comparison
@@ -389,9 +389,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 7]
+Mosko & Wood           Expires September 12, 2017               [Page 7]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    It is common for an information centric networking protocol, such as
@@ -445,9 +445,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 8]
+Mosko & Wood           Expires September 12, 2017               [Page 8]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
 3.2.1.  Examples
@@ -501,9 +501,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                 [Page 9]
+Mosko & Wood           Expires September 12, 2017               [Page 9]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    o  Scheme-based normalization: The authority should be removed and
@@ -557,9 +557,9 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                [Page 10]
+Mosko & Wood           Expires September 12, 2017              [Page 10]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    case (as above).  If there are no requirements for IANA, the section
@@ -613,9 +613,9 @@ Authors' Addresses
 
 
 
-Mosko & Wood             Expires August 4, 2016                [Page 11]
+Mosko & Wood           Expires September 12, 2017              [Page 11]
 
-Internet-Draft                 CCNxScheme                  February 2016
+Internet-Draft                 CCNxScheme                     March 2017
 
 
    Marc Mosko
@@ -669,4 +669,4 @@ Internet-Draft                 CCNxScheme                  February 2016
 
 
 
-Mosko & Wood             Expires August 4, 2016                [Page 12]
+Mosko & Wood           Expires September 12, 2017              [Page 12]
