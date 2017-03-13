@@ -1089,9 +1089,24 @@ SigTime       := AbsTime
 
       <reference anchor="CCN" target="http://www.CCNx.org"><front><title>CCNx Open Source</title><author><organization>PARC, Inc.</organization></author><date year="2007"/></front></reference>
 
-      <reference anchor="CCNMessages" target="http://tools.ietf.org/html/draft-irtf-icnrg-ccnxmessages-01"><front><title>CCNx Messages in TLV Format (Internet draft)</title><author initials="M." surname="Mosko" fullname="Marc Mosko"><organization>PARC, Inc.</organization></author><author initials="I." surname="Solis" fullname="Ignacio Solis"><organization>PARC, Inc.</organization></author><date year="2016"/></front></reference>
+      <reference anchor="CCNMessages" target="http://tools.ietf.org/html/draft-irtf-icnrg-ccnxmessages-04">
+          <front>
+              <title>CCNx Messages in TLV Format (Internet draft)</title>
+              <author initials="M." surname="Mosko" fullname="Marc Mosko"><organization>PARC, Inc.</organization></author>
+              <author initials="I." surname="Solis" fullname="Ignacio Solis"><organization>LinkedIn</organization></author>
+              <author initials="C." surname="Wood" fullname="Christopher A. Wood"><organization>University of California, Irvine</organization></author>
+              <date year="2017"/>
+          </front>
+      </reference>
 
-      <reference anchor="CCNxURI" target="http://tools.ietf.org/html/draft-mosko-icnrg-ccnxuri-03"><front><title>The CCNx URI Scheme (Internet draft)</title><author initials="M." surname="Mosko" fullname="Marc Mosko"><organization>PARC, Inc.</organization></author><author initials="C." surname="Wood" fullname="Christopher A. Wood"><organization>PARC, Inc.</organization></author><date year="2016"/></front></reference>
+      <reference anchor="CCNxURI" target="http://tools.ietf.org/html/draft-mosko-icnrg-ccnxuri-02">
+          <front>
+              <title>The CCNx URI Scheme (Internet draft)</title>
+              <author initials="M." surname="Mosko" fullname="Marc Mosko"><organization>PARC, Inc.</organization></author>
+              <author initials="C." surname="Wood" fullname="Christopher A. Wood"><organization>University of California, Irvine</organization></author>
+              <date year="2017"/>
+          </front>
+      </reference>
 
 
     </references>

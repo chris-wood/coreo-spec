@@ -43,7 +43,7 @@
 
 <?rfc private="" ?>
 
-<rfc category="exp" docName="draft-mosko-icnrg-ccnxuri-latest" ipr="trust200902">
+<rfc category="exp" docName="draft-mosko-icnrg-ccnxurischeme-latest" ipr="trust200902">
   <!-- category values: std, bcp, info, exp, and historic
     ipr values: trust200902, noModificationTrust200902, noDerivativesTrust200902,
        or pre5378Trust200902
@@ -56,7 +56,7 @@
     <!-- The abbreviated title is used in the page header - it is only necessary if the
         full title is longer than 39 characters -->
 
-    <title abbrev="CCNxScheme">The CCNx URI Scheme</title>
+    <title abbrev="CCNxURIScheme">The CCNx URI Scheme</title>
 
     <!-- add 'role="editor"' below for the editors if appropriate -->
 

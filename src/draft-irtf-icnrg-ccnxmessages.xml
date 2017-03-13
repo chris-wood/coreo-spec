@@ -1987,7 +1987,7 @@
         </front>
       </reference>
 
-      <reference anchor="CCNSemantics" target="http://tools.ietf.org/html/draft-mosko-icnrg-ccnxsemantics-01">
+      <reference anchor="CCNSemantics" target="http://tools.ietf.org/html/draft-mosko-icnrg-ccnxsemantics-04">
         <front>
           <title>CCNx Semantics (Internet draft)</title>
 
@@ -1995,10 +1995,13 @@
             <organization>PARC, Inc.</organization>
           </author>
           <author initials='I.' surname='Solis' fullname='Ignacio Solis'>
-            <organization>PARC, Inc.</organization>
+            <organization>LinkedIn</organization>
+          </author>
+          <author initials='C.' surname='Wood' fullname='Christopher A. Wood'>
+            <organization>University of California, Irvine</organization>
           </author>
 
-          <date year="2016"/>
+          <date year="2017"/>
         </front>
       </reference>
 
@@ -2024,7 +2027,7 @@
         </front>
       </reference>
 
-      <reference anchor="CCNxURI" target="http://tools.ietf.org/html/draft-mosko-icnrg-ccnxuri-03">
+      <reference anchor="CCNxURI" target="http://tools.ietf.org/html/draft-mosko-icnrg-ccnxuri-02">
         <front>
           <title>The CCNx URI Scheme (Internet draft)</title>
 
@@ -2032,9 +2035,9 @@
             <organization>PARC, Inc.</organization>
           </author>
           <author initials='C.' surname='Wood' fullname='Christopher A. Wood'>
-            <organization>PARC, Inc.</organization>
+            <organization>University of California, Irvine.</organization>
           </author>
-          <date year="2016"/>
+          <date year="2017"/>
         </front>
       </reference>
 

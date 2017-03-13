@@ -36,9 +36,19 @@ normative:
     CCNxKE:
         target: https://github.com/parc/ccnx-keyexchange-rfc
         title: CCNx Key Exchange Protocol Version 1.0
-    MESSAGES:
+    CCNxMessages:
         target: https://tools.ietf.org/html/draft-irtf-icnrg-ccnxmessages-04
-        title: CCNx Messages in TLV Format
+        title: "CCNx Semantics"
+        author:
+            -
+                ins: M. Mosko
+                org: PARC, Inc.
+            -
+                ins: I. Solis
+                org: LinkedIn
+            -
+                ins: C. A. Wood
+                org: University of California, Irvine
 
 informative:
     RFC5389:
@@ -62,7 +72,7 @@ CCNx authentication mechanisms and possibly encrypted under other schemes.
 
 # Introduction
 
-CCNx packets {{MESSAGES}} contain a fixed header, optional hop-by-hop headers,
+CCNx packets {{CCNxMessages}} contain a fixed header, optional hop-by-hop headers,
 a CCNx Message, and a validation section.  Encrypted Sessions in CCNx (ESIC)
 describes how to to transport encrypted CCNx packets inside other CCNx packets.
 The outer packet (the wrapper) uses a CCNx name that identifies the encrypted

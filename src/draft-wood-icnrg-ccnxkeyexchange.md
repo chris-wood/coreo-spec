@@ -1,7 +1,7 @@
 ---
 title: CCNx Key Exchange Protocol Version 1.0
 abbrev: CCNxKE
-docname: draft-wood-ccnxkeyexchange-latest
+docname: draft-wood-icnrg-ccnxkeyexchange-latest
 category: exp
 
 ipr: pre5378Trust200902
@@ -120,7 +120,7 @@ normative:
             org: PARC, Inc.
         -
             ins: I. Solis
-            org: PARC, Inc.
+            org: LinkedIn
         -
             ins: C. Wood
             org: University of California, Irvine
@@ -137,7 +137,7 @@ normative:
             org: University of California, Irvine
 
 informative:
-  RFC5077: <!-- Transport Layer Security (TLS) Session Resumption without Server-Side State -->
+  RFC5077:
   HASHCHAIN:
       title: "Password Authentication with Insecure Communication"
       author:

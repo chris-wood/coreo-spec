@@ -40,11 +40,12 @@ normative:
             org: PARC, Inc.
         -
             ins: I. Solis
-            org: PARC, Inc.
+            org: LinkedIn
         -
             ins: C. A. Wood
             org: University of California, Irvine
   FLIC:
+    target: https://datatracker.ietf.org/doc/draft-tschudin-icnrg-flic/
     title: "File-Like ICN Collection (FLIC)"
     author:
         -

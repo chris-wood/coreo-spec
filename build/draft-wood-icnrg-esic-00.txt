@@ -5,8 +5,8 @@
 ICNRG Working Group                                             M. Mosko
 Internet-Draft                                                PARC, Inc.
 Intended status: Experimental                                    C. Wood
-Expires: September 12, 2017              University of California Irvine
-                                                          March 11, 2017
+Expires: September 14, 2017              University of California Irvine
+                                                          March 13, 2017
 
 
                    Encrypted Sessions In CCNx (ESIC)
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on September 12, 2017.
+   This Internet-Draft will expire on September 14, 2017.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 1]
+Mosko & Wood           Expires September 14, 2017               [Page 1]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -92,8 +92,8 @@ Table of Contents
 
 1.  Introduction
 
-   CCNx packets [MESSAGES] contain a fixed header, optional hop-by-hop
-   headers, a CCNx Message, and a validation section.  Encrypted
+   CCNx packets [CCNxMessages] contain a fixed header, optional hop-by-
+   hop headers, a CCNx Message, and a validation section.  Encrypted
    Sessions in CCNx (ESIC) describes how to to transport encrypted CCNx
    packets inside other CCNx packets.  The outer packet (the wrapper)
    uses a CCNx name that identifies the encrypted session while the
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 2]
+Mosko & Wood           Expires September 14, 2017               [Page 2]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -165,7 +165,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 3]
+Mosko & Wood           Expires September 14, 2017               [Page 3]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -221,7 +221,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 4]
+Mosko & Wood           Expires September 14, 2017               [Page 4]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -277,7 +277,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 5]
+Mosko & Wood           Expires September 14, 2017               [Page 5]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -333,7 +333,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 6]
+Mosko & Wood           Expires September 14, 2017               [Page 6]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -389,7 +389,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 7]
+Mosko & Wood           Expires September 14, 2017               [Page 7]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -445,7 +445,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 8]
+Mosko & Wood           Expires September 14, 2017               [Page 8]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -501,7 +501,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017               [Page 9]
+Mosko & Wood           Expires September 14, 2017               [Page 9]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -557,7 +557,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017              [Page 10]
+Mosko & Wood           Expires September 14, 2017              [Page 10]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -599,8 +599,8 @@ Internet-Draft                  CCNx-ESIC                     March 2017
    [CCNxKE]   "CCNx Key Exchange Protocol Version 1.0", n.d.,
               <https://github.com/parc/ccnx-keyexchange-rfc>.
 
-   [MESSAGES]
-              "CCNx Messages in TLV Format", n.d.,
+   [CCNxMessages]
+              Mosko, M., Solis, I., and C. Wood, "CCNx Semantics", n.d.,
               <https://tools.ietf.org/html/draft-irtf-icnrg-
               ccnxmessages-04>.
 
@@ -613,7 +613,7 @@ Internet-Draft                  CCNx-ESIC                     March 2017
 
 
 
-Mosko & Wood           Expires September 12, 2017              [Page 11]
+Mosko & Wood           Expires September 14, 2017              [Page 11]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -669,7 +669,7 @@ Appendix A.  Sample API
 
 
 
-Mosko & Wood           Expires September 12, 2017              [Page 12]
+Mosko & Wood           Expires September 14, 2017              [Page 12]
 
 Internet-Draft                  CCNx-ESIC                     March 2017
 
@@ -725,4 +725,4 @@ Authors' Addresses
 
 
 
-Mosko & Wood           Expires September 12, 2017              [Page 13]
+Mosko & Wood           Expires September 14, 2017              [Page 13]
